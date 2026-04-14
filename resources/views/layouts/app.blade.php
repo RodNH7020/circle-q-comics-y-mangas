@@ -12,7 +12,7 @@
 
             background-image: 
                 linear-gradient(rgba(120,0,0,0.8), rgba(120,0,0,0.8)),
-                 url('/circle-q-comics-y-mangas/public/images/fondo-heroes.jpg.jpg');
+                 url('/images/fondo-heroes.jpg.jpg');
             background-size: cover;
             background-position: center;
         }
