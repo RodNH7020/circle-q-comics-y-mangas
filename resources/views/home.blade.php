@@ -9,7 +9,7 @@
 @section('content')
 <div class="d-flex justify-content-center align-items-start vh-100">
     <div class="text-center">
-        <h1>Bienvenido</h1>
+        <h1>Bienvenidos</h1>
         <p>Explorá los mejores cómics</p>
     </div>
 </div>
