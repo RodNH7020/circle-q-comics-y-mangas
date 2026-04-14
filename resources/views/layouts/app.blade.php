@@ -26,7 +26,9 @@
 <body>
 
     <nav class="navbar navbar-dark px-3">
-        <span class="navbar-brand">Circle Q</span>
+       <a class="navbar-brand" href="/home">
+    <img src="/images/logo.png" alt="Circle Q" style="height: 50px;">
+</a>
         <a href="/home">Inicio</a>
         <a href="/quienes-somos">Quiénes somos</a>
         <a href="/comercializacion">Comercialización</a>
@@ -37,6 +39,6 @@
     <div class="container mt-4">
         @yield('content')
     </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
