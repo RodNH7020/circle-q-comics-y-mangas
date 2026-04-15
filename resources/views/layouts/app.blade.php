@@ -20,6 +20,31 @@
         .navbar {
             background-color: rgba(0,0,0,0.8);
         }
+
+        .carousel img {
+          height: 600px;
+          object-fit: contain;
+        }
+
+        .card {
+        background-color: #111;
+        color: white;
+        border: none;
+      }
+
+        .card img {
+          height: 350px;
+          object-fit: contain;
+          background-color: black;
+        }
+
+        .card {
+    transition: transform 0.3s;
+      }
+
+       .card:hover {
+    transform: scale(1.05);
+      }
     </style>
 </head>
 
