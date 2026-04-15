@@ -9,3 +9,7 @@ Route::get('/', function () {
 Route::get('/home', function () {
 return view('home');
 });
+
+Route::get('/quienes-somos', function () {
+return view('quienes-somos');
+});

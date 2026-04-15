@@ -1,14 +1,14 @@
+<!-- HERO / BIENVENIDA -->
+<div class="text-center text-white py-5">
+    <h1>Bienvenidos</h1>
+    <p>Explorá los mejores cómics y mangas</p>
+</div>
+  
 @extends('layouts.app')
 
 @section('title', 'Inicio')
 
 @section('content')
-
-<!-- HERO / BIENVENIDA -->
-<div class="text-center text-white py-5">
-    <h1>Bienvenidos</h1>
-    <p>Explorá los mejores cómics</p>
-</div>
 
 <!-- CARRUSEL DESTACADOS -->
 <div class="container mb-5">
@@ -149,6 +149,7 @@
                 <img src="{{ asset('images/Chainsaw.png') }}" class="card-img-top">
                 <div class="card-body">
                     <h5>Chainsaw Man</h5>
+                    <h7>Chainsaw Man es un anime y manga de acción y fantasía oscura que sigue a Denji, un adolescente extremadamente pobre que, tras ser traicionado y asesinado, renace fusionado con su mascota, el demonio motosierra Pochita. Ahora convertido en un híbrido, Denji se une a los Cazadores de Demonios de Seguridad Pública para enfrentar monstruos nacidos del miedo humano en un mundo cínico y violento. </h7>
                 </div>
             </div>
         </div>

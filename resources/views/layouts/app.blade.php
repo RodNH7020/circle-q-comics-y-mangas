@@ -7,15 +7,27 @@
 
     <style>
         body {
-            font-family: Arial;
-            margin: 0;
+    font-family: Arial;
+    margin: 0;
+    
+    /* 1. Color de fondo sólido que recibirá el desvanecimiento */
+    background-color: rgb(0, 0, 0); 
 
-            background-image: 
-                linear-gradient(rgba(120,0,0,0.8), rgba(120,0,0,0.8)),
-                 url('/images/fondo-heroes.jpg.jpg');
-            background-size: cover;
-            background-position: center;
-        }
+    background-image: 
+        /* 2. El degradado: De transparente arriba a rojo TOTAL al final */
+        linear-gradient(to bottom, rgba(120, 0, 0, 0) 0%, rgb(0, 0, 0) 70%),
+        url('/images/fondo-heroes.jpg.jpg');
+
+    /* 3. Mantiene la imagen quieta al scrollear */
+    background-attachment: fixed;
+
+    /* 4. Evita repetición y centra */
+    background-repeat: no-repeat;
+    background-position: top center;
+
+    /* 5. Ajusta el ancho pero mantiene proporción */
+    background-size: 100% auto;
+}
 
         .navbar {
             background-color: rgba(0,0,0,0.8);
@@ -54,11 +66,10 @@
        <a class="navbar-brand" href="/home">
     <img src="/images/logo.png" alt="Circle Q" style="height: 50px;">
 </a>
-        <a href="/home">Inicio</a>
         <a href="/quienes-somos">Quiénes somos</a>
         <a href="/comercializacion">Comercialización</a>
+        <a href="/contacto">Informacion de Contactos</a>
         <a href="/consultas">Consultas</a>
-        <a href="/contacto">Contacto</a>
     </nav>
 
     <div class="container mt-4">
