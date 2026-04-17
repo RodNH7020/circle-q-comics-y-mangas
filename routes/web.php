@@ -13,3 +13,16 @@ return view('home');
 Route::get('/quienes-somos', function () {
 return view('quienes-somos');
 });
+
+
+Route::get('/terminos-y-usos', function () {
+    return view('terminos-y-usos');
+}); 
+
+
+Route::get('/consultas', function () {
+    return view('consultas');
+});
+Route::get('/sucursal', function () {
+    return view('sucursal');
+});
