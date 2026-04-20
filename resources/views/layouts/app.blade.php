@@ -96,7 +96,6 @@
    <div class="col-md-3 mb-3">
     <a href="/quienes-somos" class="text-decoration-none text-white d-block mb-2">Quiénes somos</a>
     <a href="/comercializacion" class="text-decoration-none text-white d-block mb-2">Comercialización</a>
-    <a href="/contacto" class="text-decoration-none text-white d-block mb-2">Contactos</a>
     <a href="/sucursal" class="text-decoration-none text-white d-block mb-2">Sucursales</a>
 </div>
 
@@ -119,7 +118,7 @@
       </div>
 
 
-      <div class="col-md-3 mb-3">
+      <div class="col-md-3 mb-3 text-center">
         <h5>Seguinos </h5>
         <ul class="list-inline social-icons">
   <li class="list-inline-item">
@@ -144,7 +143,13 @@
     <hr class="mb-4">
     <div class="row">
       <div class="col-md-12 text-center">
-        <p>&copy; Copyright 2026 ©Circleq . Todos los derechos reservados </p>
+        <div class="d-flex justify-content-center">
+           <a href="/terminos-y-usos" class="text-decoration-none text-white me-3">Terminos y usos - </a>
+           <a href="/politicas-de-privacidad" class="text-decoration-none text-white">Politicas de privacidad</a>
+               
+       </div>
+         <p>&copy; Copyright 2026 ©Circleq</p>
+
       </div>
     </div>
   </div>
