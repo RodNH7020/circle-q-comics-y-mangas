@@ -23,6 +23,12 @@ Route::get('/terminos-y-usos', function () {
 Route::get('/consultas', function () {
     return view('consultas');
 });
+
 Route::get('/sucursal', function () {
     return view('sucursal');
+});
+
+
+Route::get('/politicas-de-privacidad', function () {
+    return view('politicas-de-privacidad');
 });
