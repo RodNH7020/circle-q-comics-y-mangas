@@ -1,181 +1,195 @@
-<!-- HERO / BIENVENIDA -->
-<div class="text-center text-white py-5">
-    <h1>Bienvenidos</h1>
-    <p>Explorá los mejores cómics y mangas</p>
-</div>
-  
 @extends('layouts.app')
 
 @section('title', 'Inicio')
 
 @section('content')
 
-<!-- CARRUSEL DESTACADOS -->
-<div class="container mb-5">
-
-    <h2 class="text-white mb-3">🔥 Destacados</h2>
-
-    <div id="carouselComics" class="carousel slide mx-auto" data-bs-ride="carousel" style="max-width: 600px;">
-
-        <div class="carousel-inner">
-
-            <div class="carousel-item active">
-                <img src="{{ asset('images/Absolute-Batman.png') }}" class="d-block w-100">
-            </div>
-
-            <div class="carousel-item">
-                <img src="{{ asset('images/dandadan.png') }}" class="d-block w-100">
-            </div>
-
-            <div class="carousel-item">
-                <img src="{{ asset('images/Secretwars.png') }}" class="d-block w-100">
-            </div>
-
-        </div>
-
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselComics" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselComics" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
-
-    </div>
-
+<!-- HERO -->
+<div class="hero text-center text-white">
+<h1>Bienvenidos</h1>
+<p>Explorá los mejores cómics y mangas</p>
 </div>
 
-<!-- SECCIÓN MARVEL -->
+<!-- CARRUSEL HORIZONTAL -->
 <div class="container mb-5">
+<h2 class="text-white mb-3">🔥 Ofertas</h2>
 
-    <h3 class="text-white mb-3">Marvel</h3>
+<div class="scroll-horizontal">
+  <div class="scroll-track">
 
-    <div class="row">
+    <!-- originales -->
+    <div class="item"><img src="{{ asset('images/7.png') }}"></div>
+    <div class="item"><img src="{{ asset('images/8.png') }}"></div>
+    <div class="item"><img src="{{ asset('images/4.png') }}"></div>
 
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{{ asset('images/marvel1.jpg') }}" class="card-img-top">
-                <div class="card-body">
-                    <h5>Spider-Man</h5>
-                </div>
-            </div>
-        </div>
+    <!-- duplicados -->
+    <div class="item"><img src="{{ asset('images/7.png') }}"></div>
+    <div class="item"><img src="{{ asset('images/8.png') }}"></div>
+    <div class="item"><img src="{{ asset('images/4.png') }}"></div>
 
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{{ asset('images/marvel2.jpg') }}" class="card-img-top">
-                <div class="card-body">
-                    <h5>Ms. Marvel</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{{ asset('images/Secretwars.png') }}" class="card-img-top">
-                <div class="card-body">
-                    <h5>Secret Wars</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-
+  </div>
 </div>
 
-<!-- SECCIÓN DC -->
-<div class="container mb-5">
-
-    <h3 class="text-white mb-3">DC</h3>
-
-    <div class="row">
-
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{{ asset('images/dc1.jpg') }}" class="card-img-top">
-                <div class="card-body">
-                    <h5>Batman</h5>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{{ asset('images/dc2.jpg') }}" class="card-img-top">
-                <div class="card-body">
-                    <h5>Superman</h5>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{{ asset('images/dc2.jpg') }}" class="card-img-top">
-                <div class="card-body">
-                    <h5>Flashpoint</h5>
-                </div>
-            </div>
-        </div>
-
-    </div>
 
 
-    <!-- SECCIÓN MANGA -->
-<div class="container mb-5">
+<button class="carousel-control-prev" type="button" data-bs-target="#carouselComics" data-bs-slide="prev">
+<span class="carousel-control-prev-icon"></span>
+</button>
 
-    <h3 class="text-white mb-3">Manga</h3>
+<button class="carousel-control-next" type="button" data-bs-target="#carouselComics" data-bs-slide="next">
+<span class="carousel-control-next-icon"></span>
+</button>
 
-    <div class="row">
-
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{{ asset('images/marvel1.jpg') }}" class="card-img-top">
-                <div class="card-body">
-                    <h5>DandaDan</h5>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{{ asset('images/marvel2.jpg') }}" class="card-img-top">
-                <div class="card-body">
-                    <h5>One Piece</h5>
-                </div>
-            </div>
-        </div>
+</div>
+</div>
 
 
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{{ asset('images/Chainsaw.png') }}" class="card-img-top">
-                <div class="card-body">
-                    <h5>Chainsaw Man</h5>
-                    <h7>Chainsaw Man es un anime y manga de acción y fantasía oscura que sigue a Denji, un adolescente extremadamente pobre que, tras ser traicionado y asesinado, renace fusionado con su mascota, el demonio motosierra Pochita. Ahora convertido en un híbrido, Denji se une a los Cazadores de Demonios de Seguridad Pública para enfrentar monstruos nacidos del miedo humano en un mundo cínico y violento. </h7>
-                </div>
-            </div>
-        </div>
+<!-- MARVEL -->
+<div class="container">
+<div class="d-flex justify-content-between align-items-center mb-4">
+<h3 class="text-white">Marvel</h3>
+<a href="/catalogo" class="btn btn-danger btn-sm btn-round">Mas</a>
+</div>
 
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{{ asset('images/marvel2.jpg') }}" class="card-img-top">
-                <div class="card-body">
-                    <h5>Naruto</h5>
-                </div>
-            </div>
-        </div>
+<div class="row">
 
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{{ asset('images/marvel2.jpg') }}" class="card-img-top">
-                <div class="card-body">
-                    <h5>My Hero Academia</h5>
-                </div>
-            </div>
-        </div>
+<div class="col-md-3">
+<div class="card">
+<img src="{{ asset('images/Spiderverse.jpg') }}">
+<div class="card-body">
+<h5>Spider-verse</h5>
+<p>Varias versiones de Spider-Man de distintos universos deben unirse para evitar que una familia de vampiros interdimensionales los cace hasta la extinción.</p>
+</div>
+</div>
+</div>
 
-    </div>
+<div class="col-md-3">
+<div class="card">
+<img src="{{ asset('images/msmarvel.jpg') }}">
+<div class="card-body">
+<h5>Ms. Marvel</h5>
+<p>Una adolescente fanática de los superhéroes descubre que tiene poderes polimórficos y debe equilibrar su vida familiar con su nuevo rol como heroína.</p>
+</div>
+</div>
+</div>
 
+<div class="col-md-3">
+<div class="card">
+<img src="{{ asset('images/Secretwars.png') }}">
+<div class="card-body">
+<h5>Secret Wars</h5>
+<p>El multiverso colapsa y los restos de diferentes realidades se fusionan en "Battleworld", un planeta regido por el puño de hierro del Doctor Doom. Heroes y villanos de todos los universos deben unirse para sobrevivir.</p>
+</div>
+</div>
 </div>
 
 </div>
+</div>
+
+<!-- DC  -->
+<div class="container">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+<h3 class="text-white">DC</h3>
+<a href="/catalogo" class="btn btn-danger btn-sm btn-round">Mas</a>
+</div>
+
+<div class="row">
+
+<div class="col-md-3">
+<div class="card">
+<img src="{{ asset('images/Absolute-Batman.png') }}">
+<div class="card-body">
+<h5>Batman Absoluto</h5>
+<p>Una reinvención cruda donde un Bruce Wayne sin fortuna ni privilegios debe usar su ingenio y fuerza bruta para limpiar una Gotham sumida en el caos.</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card">
+<img src="{{ asset('images/AllStarSuperman.jpg') }}">
+<div class="card-body">
+<h5>All-Star Superman</h5>
+<p>Ante la noticia de su muerte inminente, Superman decide dedicar sus últimos días a realizar doce hazañas legendarias para asegurar su legado en la Tierra.</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card">
+<img src="{{ asset('images/flashpoint.jpg') }}">
+<div class="card-body">
+<h5>Flashpoint</h5>
+<p>Barry Allen viaja al pasado para salvar a su madre, pero al despertar descubre que ha alterado la realidad, creando un mundo oscuro al borde de la guerra.</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- MANGA -->
+<div class="container">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+<h3 class="text-white">Manga</h3>
+<a href="/catalogo" class="btn btn-danger btn-sm btn-round">Mas</a>
+</div>
+
+<div class="row">
+
+<div class="col-md-3">
+<div class="card">
+<img src="{{ asset('images/dandadan.png') }}">
+<div class="card-body">
+<h5>Dandadan</h5>
+<p>Un chico fan de los alienígenas y una chica que cree en fantasmas se ven envueltos en batallas sobrenaturales tras descubrir que ambos tipos de entidades existen.</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card">
+<img src="{{ asset('images/Onepiece.jpg') }}">
+<div class="card-body">
+<h5>One Piece</h5>
+<p>Monkey D. Luffy y su tripulación navegan por mares peligrosos en busca del tesoro legendario para que él pueda convertirse en el próximo Rey de los Piratas.</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card">
+<img src="{{ asset('images/Chainsaw.png') }}">
+<div class="card-body">
+<h5>Chainsaw Man</h5>
+<p>Un joven con deudas extremas se fusiona con su perro demonio para sobrevivir, convirtiéndose en un cazador de demonios con motosierras en el cuerpo.</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card">
+<img src="{{ asset('images/Naruto.jpg') }}">
+<div class="card-body">
+<h5>Naruto</h5>
+<p>Un ninja marginado que alberga un demonio en su interior lucha por ganar el reconocimiento de su aldea y cumplir su sueño de convertirse en Hokage.</p>
+</div>
+</div>
+</div>
+<!-- DC  
+<div class="col-md-3">
+<div class="card">
+<img src="{{ asset('images/marvel2.jpg') }}">
+<div class="card-body">
+<h5>My Hero Academia</h5>
+<p>En un mundo donde casi todos tienen superpoderes, un chico que nació sin ellos hereda el don del héroe más grande para estudiar en una academia de élite.</p>
+</div>
+</div>
+</div>
+
+</div>
+</div> -->
 
 @endsection

@@ -1,155 +1,221 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@yield('title')</title>
+<title>@yield('title')</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        body {
-    font-family: Arial;
+<style>
+body {
+    font-family: sans-serif;
     margin: 0;
-    
-    /* 1. Color de fondo sólido que recibirá el desvanecimiento */
-    background-color: rgb(0, 0, 0); 
+    padding-top: 90px;
 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    background-color: rgb(0, 0, 0); 
     background-image: 
-        /* 2. El degradado: De transparente arriba a rojo TOTAL al final */
         linear-gradient(to bottom, rgba(120, 0, 0, 0) 0%, rgb(0, 0, 0) 70%),
         url('/images/fondo-heroes.jpg.jpg');
 
-    /* 3. Mantiene la imagen quieta al scrollear */
     background-attachment: fixed;
-
-    /* 4. Evita repetición y centra */
     background-repeat: no-repeat;
     background-position: top center;
-
-    /* 5. Ajusta el ancho pero mantiene proporción */
     background-size: 100% auto;
 }
 
-        .navbar {
-            background-color: rgba(120,0,0,0.9);
-        }
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(120,0,0,0.95);
+}
 
-        .carousel img {
-          height: 600px;
-          object-fit: contain;
-        }
+/* HERO */
+.hero {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  text-shadow: 2px 2px 10px black;
+}
 
-        .card {
-        background-color: #111;
-        color: white;
-        border: none;
-      }
+/* SEPARACIÓN */
+.container {
+  margin-bottom: 60px;
+}
 
-        .card img {
-          height: 350px;
-          object-fit: contain;
-          background-color: black;
-        }
+/* CAROUSEL */
+.carousel-inner {
+  border-radius: 20px;
+  overflow: hidden;
+}
 
-        .card {
-    transition: transform 0.3s;
-      }
+.carousel-item img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  background-color: black;
+}
 
-       .card:hover {
-    transform: scale(1.05);
-      }
-    </style>
+/* CARDS */
+.card {
+  background-color: #111;
+  color: white;
+  border: none;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  height: 350px;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* BOTON REDONDO */
+.btn-round {
+  border-radius: 50px;
+  padding: 6px 18px;
+  font-weight: bold;
+}
+
+/* SCROLL HORIZONTAL */
+.scroll-horizontal {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.scroll-track {
+  display: flex;
+  gap: 20px;
+  animation: scrollX 20s linear infinite;
+}
+
+.scroll-horizontal .item {
+  min-width: 600px;
+}
+
+.scroll-horizontal img {
+  width: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+/* ANIMACIÓN */
+@keyframes scrollX {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+footer {
+    margin-top: auto;
+}
+
+.main-content {
+    flex: 1; 
+}
+</style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-dark px-3">
-       <a class="navbar-brand" href="/home">
-    <img src="/images/logo.png" alt="Circle Q" style="height: 50px;">
-</a>
-        <a href="/quienes-somos">Quiénes somos</a>
-        <a href="/comercializacion">Comercialización</a>
-        <a href="/contacto">Informacion de Contactos</a>
-        <a href="/consultas">Consultas</a>
-    </nav>
+<nav class="navbar navbar-dark px-3">
+  <a class="navbar-brand" href="/home">
+    <img src="/images/logo.png" style="height: 70px;">
+  </a>
 
-    <div class="container mt-4">
-        @yield('content')
-    </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <div class="d-flex gap-3">
+    <a class="nav-link text-white" href="/quienes-somos">Quiénes somos</a>
+    <a class="nav-link text-white" href="/comercializacion">Comercialización</a>
+    <a class="nav-link text-white" href="/contacto">Informacion de Contactos</a>
+    <a class="nav-link text-white" href="/consultas">Consultas</a>
+  </div>
+</nav>
 
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<footer class="mt-auto pt-5 pb-4" style="background-color: rgba(120, 0, 0, 0.9); color: white;">
+<div class="main-content">
   <div class="container">
-    
-
-  <div class="row">
-      <div class="col-md-3 mb-3">
-        <a href="/home">
-         <img src="/images/logo.png" alt="Circle Q" style="height: 120px;margin-top: -30px;">
-         </a>
-      </div>
-
-       
-   <div class="col-md-3 mb-3">
-    <a href="/quienes-somos" class="text-decoration-none text-white d-block mb-2">Quiénes somos</a>
-    <a href="/comercializacion" class="text-decoration-none text-white d-block mb-2">Comercialización</a>
-    <a href="/contacto" class="text-decoration-none text-white d-block mb-2">Contactos</a>
-    <a href="/sucursal" class="text-decoration-none text-white d-block mb-2">Sucursales</a>
+    @yield('content')
+  </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+<footer class="mt-auto pt-5 pb-4" style="background-color: rgba(120, 0, 0, 0.9); color: white;">
+  <div class="container">
 
+    <div class="row">
+      <!-- Logo -->
       <div class="col-md-3 mb-3">
-        <h5>Contactanos </h5>
+        <a href="/home">
+          <img src="/images/logo.png" style="height: 120px;margin-top: -30px;">
+        </a>
+      </div>
+
+      <!-- Links -->
+      <div class="col-md-3 mb-3">
+        <a href="/quienes-somos" class="text-decoration-none text-white d-block mb-2">Quiénes somos</a>
+        <a href="/comercializacion" class="text-decoration-none text-white d-block mb-2">Comercialización</a>
+        <a href="/contacto" class="text-decoration-none text-white d-block mb-2">Contactos</a>
+        <a href="/sucursal" class="text-decoration-none text-white d-block mb-2">Sucursales</a>
+      </div>
+
+      <!-- Contacto -->
+      <div class="col-md-3 mb-3">
+        <h5>Contactanos</h5>
         <ul class="list-unstyled">
           <li>
-            <a href="https://wa.me/5493794026500" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-white">
-                3794026500
+            <a href="https://wa.me/5493794026500" target="_blank" class="text-decoration-none text-white">
+              3794026500
             </a>
-        </li>
-        <li class="mt-2">
+          </li>
+          <li class="mt-2">
             <a href="mailto:loourdeeselizabethmonzon@gmail.com" class="text-decoration-none text-white">
-                circleq@gmail.com
+              circleq@gmail.com
             </a>
-        </li>
+          </li>
         </ul>
       </div>
 
-
-      <div class="col-md-3 mb-3">
-        <h5>Seguinos </h5>
-        <ul class="list-inline social-icons">
-  <li class="list-inline-item">
-    <a href="https://www.facebook.com/" target="_blank" class="text-white">
-      <i class="bi bi-facebook"></i>
-    </a>
-  </li>
-
-  <li class="list-inline-item">
-    <a href="https://www.instagram.com/boludeco_" target="_blank" class="text-white">
-      <i class="bi bi-instagram"></i>
-    </a>
-  </li>
- 
-  
-
-
-  
-</ul>
+      <!-- Redes -->
+      <div class="col-md-3 mb-3 text-center">
+        <h5>Seguinos</h5>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="https://www.facebook.com/" target="_blank" class="text-white">
+              <i class="bi bi-facebook"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a href="https://www.instagram.com/" target="_blank" class="text-white">
+              <i class="bi bi-instagram"></i>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
-    <hr class="mb-4">
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <p>&copy; Copyright 2026 ©Circleq . Todos los derechos reservados </p>
+
+    <hr>
+
+    <!-- Bottom -->
+    <div class="text-center">
+      <div class="d-flex justify-content-center">
+        <a href="/terminos-y-usos" class="text-decoration-none text-white me-3">Términos y usos -</a>
+        <a href="/politicas-de-privacidad" class="text-decoration-none text-white">Políticas de privacidad</a>
       </div>
+      <p class="mt-2">&copy; Copyright 2026 ©Circleq</p>
     </div>
+
   </div>
 </footer>
-
 
 </body>
 </html>
