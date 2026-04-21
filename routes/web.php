@@ -15,6 +15,11 @@ return view('quienes-somos');
 });
 
 
+Route::get('/comercializacion', function () {
+return view('comercializacion');
+});
+
+
 Route::get('/terminos-y-usos', function () {
     return view('terminos-y-usos');
 }); 

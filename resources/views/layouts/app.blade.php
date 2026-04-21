@@ -4,12 +4,15 @@
 <title>@yield('title')</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto&display=swap" rel="stylesheet">
+
 
 <style>
 body {
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding-top: 90px;
+    
 
     display: flex;
     flex-direction: column;
@@ -40,6 +43,15 @@ body {
   padding-top: 60px;
   padding-bottom: 60px;
   text-shadow: 2px 2px 10px black;
+}
+
+h1, h2, h3, h4, h5, .comic-title {
+    font-family: 'Bangers', cursive;
+    letter-spacing: 1px;
+}
+
+.card p {
+    font-family: 'Roboto', sans-serif;
 }
 
 /* SEPARACIÓN */
