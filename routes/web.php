@@ -37,3 +37,7 @@ Route::get('/sucursal', function () {
 Route::get('/politicas-de-privacidad', function () {
     return view('politicas-de-privacidad');
 });
+
+Route::get('/catalogo', function () {
+    return view('catalogo');
+});

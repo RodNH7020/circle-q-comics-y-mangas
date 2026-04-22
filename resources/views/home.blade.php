@@ -12,7 +12,7 @@
 
 <!-- CARRUSEL HORIZONTAL -->
 <div class="container mb-5">
-<h2 class="text-white mb-3">🔥 Ofertas</h2>
+<h2 class="text-white mb-3">🔥 Anuncios</h2>
 
 <div class="scroll-horizontal">
   <div class="scroll-track">
@@ -83,6 +83,17 @@
 </div>
 </div>
 
+<div class="col-md-3">
+<div class="card">
+<img src="{{ asset('images/civilwar.jpg') }}">
+<div class="card-body">
+<h5>Civil War</h5>
+<p>Tras una tragedia nacional, el gobierno promulga una ley de registro de superhumanos, provocando un enfrentamiento ideológico y físico entre Iron Man y el Capitán América.</p>
+</div>
+</div>
+</div>
+
+
 </div>
 </div>
 
@@ -125,6 +136,17 @@
 </div>
 </div>
 </div>
+
+<div class="col-md-3">
+<div class="card">
+<img src="{{ asset('images/Thedark.webp') }}">
+<div class="card-body">
+<h5>El Regreso del Caballero de la Noche</h5>
+<p>En un futuro distópico, un Bruce Wayne envejecido y retirado decide retomar el manto de Batman para combatir la creciente ola de violencia que azota a Gotham.</p>
+</div>
+</div>
+</div>
+
 
 </div>
 </div>
