@@ -193,7 +193,7 @@
 
 <div class="col-md-3">
 <div class="card">
-<img src="{{ asset('images/Naruto.jpg') }}">
+<img src="{{ asset('images/Naruto.webp') }}">
 <div class="card-body">
 <h5>Naruto</h5>
 <p>Un ninja marginado que alberga un demonio en su interior lucha por ganar el reconocimiento de su aldea y cumplir su sueño de convertirse en Hokage.</p>

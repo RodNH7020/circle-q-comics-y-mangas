@@ -5,13 +5,13 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto&display=swap" rel="stylesheet">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
-    padding-top: 90px;
+    padding-top: 70px;
     
 
     display: flex;
@@ -67,9 +67,7 @@ h1, h2, h3, h4, h5, .comic-title {
 
 .carousel-item img {
   width: 100%;
-  height: 500px;
-  object-fit: cover;
-  background-color: black;
+  height: auto;
 }
 
 /* CARDS */
@@ -85,9 +83,8 @@ h1, h2, h3, h4, h5, .comic-title {
 }
 
 .card img {
-  height: 350px;
-  object-fit: cover;
-  object-position: top;
+  width: 100%;
+  height: auto;
 }
 
 /* BOTON REDONDO */
@@ -139,17 +136,27 @@ footer {
 
 <body>
 
-<nav class="navbar navbar-dark px-3">
+<nav class="navbar navbar-expand-lg navbar-dark px-3">
+  
   <a class="navbar-brand" href="/home">
-    <img src="/images/logo.png" style="height: 70px;">
+    <img src="/images/logo.png" style="height: 60px;">
   </a>
 
-  <div class="d-flex gap-3">
-    <a class="nav-link text-white" href="/quienes-somos">Quiénes somos</a>
-    <a class="nav-link text-white" href="/comercializacion">Comercialización</a>
-    <a class="nav-link text-white" href="/contacto">Informacion de Contactos</a>
-    <a class="nav-link text-white" href="/consultas">Consultas</a>
+  <!-- BOTÓN HAMBURGUESA -->
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- CONTENIDO -->
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="ms-auto d-flex flex-column flex-lg-row gap-3">
+      <a class="nav-link text-white" href="/quienes-somos">Quiénes somos</a>
+      <a class="nav-link text-white" href="/comercializacion">Comercialización</a>
+      <a class="nav-link text-white" href="/contacto">Información de Contactos</a>
+      <a class="nav-link text-white" href="/consultas">Consultas</a>
+    </div>
   </div>
+
 </nav>
 
 <div class="main-content">
