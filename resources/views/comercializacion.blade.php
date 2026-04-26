@@ -4,7 +4,9 @@
 
 @section('content')
 
-<h1 class="text-center text-white mb-5">Comercialización</h1>
+<div class="hero text-center text-white">
+<h1>Comercialización</h1>
+</div>
 
 <div class="row">
 

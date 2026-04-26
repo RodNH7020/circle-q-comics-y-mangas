@@ -4,7 +4,9 @@
 
 @section('content')
 
-<h1 class="text-center text-white mb-5">Quiénes Somos</h1>
+<div class="hero text-center text-white">
+<h1>Quiénes Somos</h1>
+</div>
 
 <div class="row mb-5">
     <div class="col-md-6">

@@ -4,7 +4,9 @@
 
 @section('content')
 
-<h1 class="text-center text-white mb-5">Catálogo Completo (A-Z)</h1>
+<div class="hero text-center text-white">
+<h1>Catálogo Completo (A-Z)</h1>
+</div>
 
 @php
 $comics = [

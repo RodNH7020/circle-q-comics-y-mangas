@@ -11,7 +11,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
-    padding-top: 70px;
+    padding-top: 80px;
     
 
     display: flex;
@@ -48,6 +48,7 @@ body {
 h1, h2, h3, h4, h5, .comic-title {
     font-family: 'Bangers', cursive;
     letter-spacing: 1px;
+    text-shadow: 2px 2px 5px black, 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .card p {
