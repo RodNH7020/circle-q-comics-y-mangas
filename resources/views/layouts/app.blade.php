@@ -38,6 +38,11 @@ body {
   background-color: rgba(120,0,0,0.95);
 }
 
+.active-link {
+  font-weight: bold;
+  border-bottom: 2px solid white;
+}
+
 /* HERO */
 .hero {
   padding-top: 60px;
@@ -94,7 +99,6 @@ h1, h2, h3, h4, h5, .comic-title {
     padding: 20px;
     border-radius: 8px;
 }
-
 
 
 /* BOTON REDONDO */
@@ -161,12 +165,25 @@ footer {
   <!-- CONTENIDO -->
   <div class="collapse navbar-collapse" id="navbarNav">
     <div class="ms-auto d-flex flex-column flex-lg-row gap-3">
+      <!--
       <a class="nav-link text-white" href="/quienes-somos">Quiénes somos</a>
       <a class="nav-link text-white" href="/comercializacion">Comercialización</a>
       <a class="nav-link text-white" href="/informacion-de-contacto">Información de Contactos</a>
       <a class="nav-link text-white" href="/catalogo">Catálogo</a>
       <a class="nav-link text-white" href="/terminos-y-usos">Terminos y usos</a>
-      <a class="nav-link text-white" href="/consultas">Consultas</a>
+      <a class="nav-link text-white" href="/consultas">Consultas</a> -->
+
+      <a class="nav-link text-white {{ request()->is('quienes-somos') ? 'active-link' : '' }}" href="/quienes-somos">Quiénes somos</a>
+
+      <a class="nav-link text-white {{ request()->is('comercializacion') ? 'active-link' : '' }}" href="/comercializacion">Comercialización</a>
+
+      <a class="nav-link text-white {{ request()->is('contacto') ? 'active-link' : '' }}" href="/contacto">Información de Contactos</a>
+
+      <a class="nav-link text-white {{ request()->is('catalogo') ? 'active-link' : '' }}" href="/catalogo">Catálogo</a>
+
+      <a class="nav-link text-white {{ request()->is('terminos-y-usos') ? 'active-link' : '' }}" href="/terminos-y-usos">Términos y usos</a>
+
+      <a class="nav-link text-white {{ request()->is('consultas') ? 'active-link' : '' }}" href="/consultas">Consultas</a>
     </div>
   </div>
 </nav>
