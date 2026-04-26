@@ -87,21 +87,22 @@ h1, h2, h3, h4, h5, .comic-title {
   height: auto;
 }
 
-/* FONDOS PARA TEXTO FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF*/
 .fondo-texto {
-    background-color: rgba(0, 0, 0, 0.7); /*  evaluar
-    color: #eceaea;           
-    padding: 20px;            
-    border-radius: 8px;       
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #eceaea;
+    padding: 20px;
+    border-radius: 8px;
 }
 
-/* FONDOS PARA TEXTO FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF*/
+/* FONDOS PARA TEXTO FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 .fondo-texto {
     background-color: rgba(0, 0, 0, 0.7); /*  evaluar
     color: #eceaea;           
     padding: 20px;            
     border-radius: 8px;       
-}
+} Por alguna razon esto rompre el carrusel, lo dejo comentado por las dudas */
+
+
 
 /* BOTON REDONDO */
 .btn-round {
@@ -110,27 +111,28 @@ h1, h2, h3, h4, h5, .comic-title {
   font-weight: bold;
 }
 
-/* SCROLL HORIZONTAL */
 .scroll-horizontal {
   display: flex;
-  gap: 20px;
   overflow: hidden;
   width: 100%;
 }
 
 .scroll-track {
   display: flex;
-  gap: 20px;
+  width: max-content; 
   animation: scrollX 20s linear infinite;
+  gap: 20px; 
 }
 
 .scroll-horizontal .item {
-  min-width: 600px;
+  min-width: 220px; 
+  flex-shrink: 0;
 }
 
 .scroll-horizontal img {
   width: 100%;
-  object-fit: contain;
+  height: 350px; 
+  object-fit: cover; 
   border-radius: 10px;
 }
 
@@ -172,7 +174,6 @@ footer {
       <a class="nav-link text-white" href="/consultas">Consultas</a>
     </div>
   </div>
-
 </nav>
 
 <div class="main-content">

@@ -22,7 +22,7 @@
     <div class="item"><img src="{{ asset('images/8.png') }}"></div>
     <div class="item"><img src="{{ asset('images/4.png') }}"></div>
 
-    <!-- duplicados -->
+    <!-- duplicados (NECESARIOS para infinito) -->
     <div class="item"><img src="{{ asset('images/7.png') }}"></div>
     <div class="item"><img src="{{ asset('images/8.png') }}"></div>
     <div class="item"><img src="{{ asset('images/4.png') }}"></div>
@@ -30,15 +30,8 @@
   </div>
 </div>
 
+</div>
 
-
-<button class="carousel-control-prev" type="button" data-bs-target="#carouselComics" data-bs-slide="prev">
-<span class="carousel-control-prev-icon"></span>
-</button>
-
-<button class="carousel-control-next" type="button" data-bs-target="#carouselComics" data-bs-slide="next">
-<span class="carousel-control-next-icon"></span>
-</button>
 
 </div>
 </div>
