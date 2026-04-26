@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ContactoController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -50,3 +52,4 @@ Route::get('/informacion-de-contacto', function () {
     return view('informacion-de-contacto');
 });
 
+Route::post('/contacto-enviar', [ContactoController::class, 'procesar'])->name('contacto.enviar');
