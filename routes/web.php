@@ -41,3 +41,12 @@ Route::get('/politicas-de-privacidad', function () {
 Route::get('/catalogo', function () {
     return view('catalogo');
 });
+
+Route::get('/consultas', function () {
+    return view('consultas');
+});
+
+Route::get('/informacion-de-contacto', function () {
+    return view('informacion-de-contacto');
+});
+

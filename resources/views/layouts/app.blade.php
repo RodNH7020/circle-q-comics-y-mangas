@@ -87,6 +87,22 @@ h1, h2, h3, h4, h5, .comic-title {
   height: auto;
 }
 
+/* FONDOS PARA TEXTO FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF*/
+.fondo-texto {
+    background-color: rgba(0, 0, 0, 0.7); /*  evaluar
+    color: #eceaea;           
+    padding: 20px;            
+    border-radius: 8px;       
+}
+
+/* FONDOS PARA TEXTO FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF*/
+.fondo-texto {
+    background-color: rgba(0, 0, 0, 0.7); /*  evaluar
+    color: #eceaea;           
+    padding: 20px;            
+    border-radius: 8px;       
+}
+
 /* BOTON REDONDO */
 .btn-round {
   border-radius: 50px;
@@ -183,7 +199,6 @@ footer {
       <div class="col-md-3 mb-3">
         <a href="/quienes-somos" class="text-decoration-none text-white d-block mb-2">Quiénes somos</a>
         <a href="/comercializacion" class="text-decoration-none text-white d-block mb-2">Comercialización</a>
-        <a href="/contacto" class="text-decoration-none text-white d-block mb-2">Contactos</a>
         <a href="/sucursal" class="text-decoration-none text-white d-block mb-2">Sucursales</a>
       </div>
 
