@@ -89,18 +89,10 @@ h1, h2, h3, h4, h5, .comic-title {
 
 .fondo-texto {
     background-color: rgba(0, 0, 0, 0.7);
-    color: #eceaea;
+    color: #ffffff;
     padding: 20px;
     border-radius: 8px;
 }
-
-/* FONDOS PARA TEXTO FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-.fondo-texto {
-    background-color: rgba(0, 0, 0, 0.7); /*  evaluar
-    color: #eceaea;           
-    padding: 20px;            
-    border-radius: 8px;       
-} Por alguna razon esto rompre el carrusel, lo dejo comentado por las dudas */
 
 
 
@@ -170,7 +162,9 @@ footer {
     <div class="ms-auto d-flex flex-column flex-lg-row gap-3">
       <a class="nav-link text-white" href="/quienes-somos">Quiénes somos</a>
       <a class="nav-link text-white" href="/comercializacion">Comercialización</a>
-      <a class="nav-link text-white" href="/contacto">Información de Contactos</a>
+      <a class="nav-link text-white" href="/informacion-de-contacto">Información de Contactos</a>
+      <a class="nav-link text-white" href="/catalogo">Catálogo</a>
+      <a class="nav-link text-white" href="/terminos-y-usos">Terminos y usos</a>
       <a class="nav-link text-white" href="/consultas">Consultas</a>
     </div>
   </div>
