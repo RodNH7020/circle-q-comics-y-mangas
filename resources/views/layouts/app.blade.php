@@ -90,6 +90,14 @@ h1, h2, h3, h4, h5, .comic-title {
   object-position: top;
 }
 
+/* FONDOS PARA TEXTO FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF*/
+.fondo-texto {
+    background-color: rgba(0, 0, 0, 0.7); /*  evaluar
+    color: #eceaea;           
+    padding: 20px;            
+    border-radius: 8px;       
+}
+
 /* BOTON REDONDO */
 .btn-round {
   border-radius: 50px;
@@ -147,8 +155,10 @@ footer {
   <div class="d-flex gap-3">
     <a class="nav-link text-white" href="/quienes-somos">Quiénes somos</a>
     <a class="nav-link text-white" href="/comercializacion">Comercialización</a>
-    <a class="nav-link text-white" href="/contacto">Informacion de Contactos</a>
-    <a class="nav-link text-white" href="/consultas">Consultas</a>
+    <a class="nav-link text-white" href="/informacion-de-contacto">Información de Contactos </a>
+    <a class="nav-link text-white" href="/terminos-y-usos">Términos y Usos </a>
+    <a class="nav-link text-white" href="/catalogo ">Catálogo </a> 
+    <a class="nav-link text-white" href="/consultas ">Consultas</a>   
   </div>
 </nav>
 
@@ -176,7 +186,6 @@ footer {
       <div class="col-md-3 mb-3">
         <a href="/quienes-somos" class="text-decoration-none text-white d-block mb-2">Quiénes somos</a>
         <a href="/comercializacion" class="text-decoration-none text-white d-block mb-2">Comercialización</a>
-        <a href="/contacto" class="text-decoration-none text-white d-block mb-2">Contactos</a>
         <a href="/sucursal" class="text-decoration-none text-white d-block mb-2">Sucursales</a>
       </div>
 

@@ -5,10 +5,10 @@
 @section('content')
 
 <div class="container my-5">
-    <div class="card shadow-sm border-0 p-5" style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">
+    <div class="card shadow-sm border-0 p-5 fondo-texto">
         
-        <h2 class="mb-4 text-center">Política de Privacidad</h2>
-        <hr class="mb-4" style="border-top: 2px solid #ffffff;">
+        <h2 class="mb-4 text-center">Políticas de Privacidad</h2>
+
 
         <div class="card-body">
            
