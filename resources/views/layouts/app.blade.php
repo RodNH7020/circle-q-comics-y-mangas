@@ -94,7 +94,7 @@ h1, h2, h3, h4, h5, .comic-title {
 }
 
 .fondo-texto {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.9);
     color: #ffffff;
     padding: 20px;
     border-radius: 8px;
@@ -177,7 +177,7 @@ footer {
 
       <a class="nav-link text-white {{ request()->is('comercializacion') ? 'active-link' : '' }}" href="/comercializacion">Comercialización</a>
 
-      <a class="nav-link text-white {{ request()->is('contacto') ? 'active-link' : '' }}" href="/contacto">Información de Contactos</a>
+      <a class="nav-link text-white {{ request()->is('contacto') ? 'active-link' : '' }}" href="/informacion-de-contacto">Información de Contactos</a>
 
       <a class="nav-link text-white {{ request()->is('catalogo') ? 'active-link' : '' }}" href="/catalogo">Catálogo</a>
 
@@ -225,8 +225,8 @@ footer {
             </a>
           </li>
           <li class="mt-2">
-            <a href="mailto:loourdeeselizabethmonzon@gmail.com" class="text-decoration-none text-white">
-              circleq@gmail.com
+            <a href="mailto:circleq@gmail.com" class="text-decoration-none text-white"> circleq@gmail.com
+
             </a>
           </li>
         </ul>
