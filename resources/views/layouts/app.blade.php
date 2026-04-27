@@ -12,21 +12,26 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding-top: 80px;
-    
 
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 
-    background-color: rgb(0, 0, 0); 
+    background-color: black;
     background-image: 
-        linear-gradient(to bottom, rgba(120, 0, 0, 0) 0%, rgb(0, 0, 0) 70%),
-        url('/images/fondo-heroes.jpg.jpg');
+        linear-gradient(
+            to bottom,
+            rgba(120, 0, 0, 0) 0%,
+            rgba(0,0,0,0.4) 60%,
+            rgba(0,0,0,0.8) 80%,
+            rgb(0, 0, 0) 100%
+        ),
+        url("/images/23n.png");
 
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: top center;
-    background-size: 100% auto;
+    background-size: cover;
 }
 
 /* NAVBAR */
