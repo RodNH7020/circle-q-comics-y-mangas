@@ -4,11 +4,6 @@
 
 @section('content')
 
-@extends('layouts.app')
-
-@section('title', 'Contacto')
-
-@section('content')
 
 <div class="container my-5">
     <div class="card shadow-sm border-0 p-4 p-md-5 fondo-texto">

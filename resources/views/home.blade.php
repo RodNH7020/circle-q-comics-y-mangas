@@ -22,7 +22,7 @@
     <div class="item"><img src="{{ asset('images/8.png') }}"></div>
     <div class="item"><img src="{{ asset('images/4.png') }}"></div>
 
-    <!-- duplicados (NECESARIOS para infinito) -->
+    <!-- duplicados -->
     <div class="item"><img src="{{ asset('images/7.png') }}"></div>
     <div class="item"><img src="{{ asset('images/8.png') }}"></div>
     <div class="item"><img src="{{ asset('images/4.png') }}"></div>

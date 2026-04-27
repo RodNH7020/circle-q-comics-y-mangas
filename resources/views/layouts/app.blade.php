@@ -116,20 +116,20 @@ h1, h2, h3, h4, h5, .comic-title {
 
 .scroll-track {
   display: flex;
-  width: max-content; 
+  width: max-content;
   animation: scrollX 20s linear infinite;
-  gap: 20px; 
 }
 
 .scroll-horizontal .item {
-  min-width: 220px; 
-  flex-shrink: 0;
+  flex: 0 0 auto;
+  width: 600px; 
+  margin-right: 20px;
 }
 
 .scroll-horizontal img {
   width: 100%;
-  height: 350px; 
-  object-fit: cover; 
+  height: 350px;
+  object-fit: cover;
   border-radius: 10px;
 }
 
@@ -165,19 +165,12 @@ footer {
   <!-- CONTENIDO -->
   <div class="collapse navbar-collapse" id="navbarNav">
     <div class="ms-auto d-flex flex-column flex-lg-row gap-3">
-      <!--
-      <a class="nav-link text-white" href="/quienes-somos">Quiénes somos</a>
-      <a class="nav-link text-white" href="/comercializacion">Comercialización</a>
-      <a class="nav-link text-white" href="/informacion-de-contacto">Información de Contactos</a>
-      <a class="nav-link text-white" href="/catalogo">Catálogo</a>
-      <a class="nav-link text-white" href="/terminos-y-usos">Terminos y usos</a>
-      <a class="nav-link text-white" href="/consultas">Consultas</a> -->
-
+  
       <a class="nav-link text-white {{ request()->is('quienes-somos') ? 'active-link' : '' }}" href="/quienes-somos">Quiénes somos</a>
 
       <a class="nav-link text-white {{ request()->is('comercializacion') ? 'active-link' : '' }}" href="/comercializacion">Comercialización</a>
 
-      <a class="nav-link text-white {{ request()->is('contacto') ? 'active-link' : '' }}" href="/contacto">Información de Contactos</a>
+      <a class="nav-link text-white {{ request()->is('informacion-de-contacto') ? 'active-link' : '' }}" href="/informacion-de-contacto">Información de Contactos</a>
 
       <a class="nav-link text-white {{ request()->is('catalogo') ? 'active-link' : '' }}" href="/catalogo">Catálogo</a>
 
