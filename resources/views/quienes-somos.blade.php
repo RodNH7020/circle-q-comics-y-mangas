@@ -18,7 +18,7 @@
         </p>
     </div>
     <div class="col-md-6">
-        <img src="/images/fondo-heroes.jpg.jpg" class="img-fluid rounded">
+        <img src="/images/fondo.png" class="img-fluid rounded">
     </div>
 </div>
 
