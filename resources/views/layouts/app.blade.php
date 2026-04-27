@@ -170,7 +170,7 @@ footer {
 
       <a class="nav-link text-white {{ request()->is('comercializacion') ? 'active-link' : '' }}" href="/comercializacion">Comercialización</a>
 
-      <a class="nav-link text-white {{ request()->is('contacto') ? 'active-link' : '' }}" href="/contacto">Información de Contactos</a>
+      <a class="nav-link text-white {{ request()->is('informacion-de-contacto') ? 'active-link' : '' }}" href="/informacion-de-contacto">Información de Contactos</a>
 
       <a class="nav-link text-white {{ request()->is('catalogo') ? 'active-link' : '' }}" href="/catalogo">Catálogo</a>
 
@@ -206,6 +206,7 @@ footer {
         <a href="/quienes-somos" class="text-decoration-none text-white d-block mb-2">Quiénes somos</a>
         <a href="/comercializacion" class="text-decoration-none text-white d-block mb-2">Comercialización</a>
         <a href="/sucursal" class="text-decoration-none text-white d-block mb-2">Sucursales</a>
+
       </div>
 
       <!-- Contacto -->
