@@ -51,12 +51,14 @@
     <div class="col-md-4 mb-4">
         <img src="/images/Rod.png" class="rounded-circle mb-2" width="150" height="150">
         <h5 class="text-white">Rodrigo Perez</h5>
+        <p class="text-white">Gerente</p>
         <p class="text-white">Desarrollador Web</p>
     </div>
 
     <div class="col-md-4 mb-4">
         <img src="/images/Lou.jpeg" class="rounded-circle mb-2" width="150" height="150">
         <h5 class="text-white">Lourdes Monzón</h5>
+        <p class="text-white">Ventas </p>
         <p class="text-white">Desarrolladora Web</p>
     </div>
 

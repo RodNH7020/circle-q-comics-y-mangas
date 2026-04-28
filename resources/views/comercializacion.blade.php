@@ -30,7 +30,8 @@
             <h4>Envíos</h4>
             <p>
                 Realizamos envíos a todo el país mediante servicios de mensajería.
-                Los tiempos de entrega varían entre 3 y 7 días hábiles dependiendo de la ubicación.
+                Los tiempos de despacho varían entre 3 y 7 días hábiles.  
+                El tiempo de entrega posterior depende exclusivamente de la empresa de mensajeria.
             </p>
         </div>
     </div>
