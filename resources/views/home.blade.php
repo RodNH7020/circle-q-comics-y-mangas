@@ -7,7 +7,7 @@
 <!-- HERO -->
 <div class="hero text-center text-white">
 <h1>Bienvenidos</h1>
-<p>Explorá los mejores cómics y mangas</p>
+<p style="text-shadow: 2px 2px 5px black, 0 0 10px rgba(0, 0, 0, 0.5);">Explorá los mejores cómics y mangas</p>
 </div>
 
 <!-- CARRUSEL HORIZONTAL -->
