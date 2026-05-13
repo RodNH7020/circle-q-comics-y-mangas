@@ -12,8 +12,9 @@ class ContactoController extends Controller
         $request->validate([
             
              'nombre'  => 'required|min:3|regex:/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/u', 
+             'nombre.regex'    => 'El nombre solo puede contener letras y espacios.', 
              'email'   => 'required|email',
-              'mensaje' => 'required|min:10|max:500',
+              'mensaje' => 'required|min:10|max:500 |regex:/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/u',
         ], [
             // Mensajes personalizados en español
             'nombre.required' => 'Por favor, dinos tu nombre.',
