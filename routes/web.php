@@ -53,3 +53,6 @@ Route::get('/informacion-de-contacto', function () {
 });
 
 Route::post('/contacto-enviar', [ContactoController::class, 'procesar'])->name('contacto.enviar');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
