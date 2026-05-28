@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Sucursal')
+@section('title', 'Inicio')
 
 @section('content')
 
 <div class="container my-5">
-    <div class="card shadow-sm border-0 fondo texto">
+    <div class="card shadow-sm border-0" fondo-texto ">
         <div class="card-body p-4"> 
             
             <h2 class="mb-4">Nuestra Sucursal</h2>

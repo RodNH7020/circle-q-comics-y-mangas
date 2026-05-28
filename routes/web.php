@@ -55,4 +55,12 @@ Route::get('/informacion-de-contacto', function () {
 Route::post('/contacto-enviar', [ContactoController::class, 'procesar'])->name('contacto.enviar');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Sin proteccion - cualquiera puede entrar
+Route::get('/login',[AuthController::class, 'formularioLogin']);
+
+//Con doble proteccion
+// auth verifica que el usuario este logueado
+//rol:admin verifica que sea admin su rol
+Route::middleware(['auth', 'rol:admin'])->group(function(){
+    Route::get('/admin',[AdminController::class, 'dashboard']);
+});
