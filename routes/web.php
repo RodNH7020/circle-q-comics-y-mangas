@@ -4,6 +4,27 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ContactoController;
 
+use App\Http\Controllers\AuthController;
+
+// Login
+Route::get('/login', [AuthController::class, 'formularioLogin'])
+    ->name('login');
+
+Route::post('/login', [AuthController::class, 'autenticar'])
+    ->name('login.post');
+
+// Registro
+Route::get('/register', [AuthController::class, 'formularioRegistro'])
+    ->name('register');
+
+Route::post('/register', [AuthController::class, 'registrar'])
+    ->name('register.post');
+
+// Logout
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -53,10 +74,8 @@ Route::get('/informacion-de-contacto', function () {
 });
 
 Route::post('/contacto-enviar', [ContactoController::class, 'procesar'])->name('contacto.enviar');
-Auth::routes();
+//Auth::routes();
 
-//Sin proteccion - cualquiera puede entrar
-Route::get('/login',[AuthController::class, 'formularioLogin']);
 
 //Con doble proteccion
 // auth verifica que el usuario este logueado
