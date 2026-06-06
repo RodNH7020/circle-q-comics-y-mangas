@@ -142,3 +142,7 @@ Route::put(
     '/admin/productos/{id}',
     [ProductoController::class, 'update']
 )->name('productos.update');
+
+Route::post('/admin/productos',
+    [ProductoController::class, 'store']
+)->name('productos.store');
