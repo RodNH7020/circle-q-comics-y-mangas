@@ -2,10 +2,26 @@
 
 @section('content')
 
-<div class = "comtainer mt-5">
-    <h1> Panel de Administracion </h>
-    <p> Has iniciado sesion correctamente </p>
+<h1>Panel Administrador</h1>
 
-    <p> Administrador: {{Auth::user()-> nombre }} </p>
-</div>
-@endsection
+<a href="/admin/productos" class="btn btn-primary">
+    Gestionar Productos
+</a>
+
+<br>
+
+<a href="/admin/usuarios">
+    Ver Usuarios
+</a>
+
+<br>
+
+<a href="/admin/contactos">
+    Ver Consultas
+</a>
+
+<br>
+
+<a href="/admin/ventas">
+    Ver Ventas
+</a>

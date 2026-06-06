@@ -81,15 +81,21 @@ Route::post('/contacto-enviar', [ContactoController::class, 'procesar'])->name('
 
 //Con doble proteccion
 // auth verifica que el usuario este logueado
-rol:admin verifica que sea admin su rol
-Route::middleware(['auth', 'rol:admin'])->group(function(){
-    Route::get('/admin',[AdminController::class, 'dashboard']);
+//rol:admin verifica que sea admin su rol
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'dashboard']);
 });
 
-Route::get('/admin', function () {
-    return view('backend.admin.dashboard');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    Route::get('/admin', [AdminController::class, 'dashboard']);
+
+    Route::get('/admin/productos',
+        [ProductoController::class, 'index']);
 });
+
 
 Route::get('/cliente', function () {
     return view('backend.usuarios.cliente');
 });
+

@@ -2,11 +2,14 @@
 
 @section('content')
 
-<div class = "comtainer mt-5">
-  
+<div class="container mt-5">
+    <h1>Bienvenido a Circle Q</h1>
 
-<p> usuario: {{Auth::user()-> nombre }} </p>
-    <p> Role: {{Auth::user()-> role }} </p>
+    <p>Has iniciado sesión correctamente.</p>
+
+    <p>Usuario: {{ Auth::user()->nombre }}</p>
+
+    <p>Rol: {{ Auth::user()->role }}</p>
 </div>
-@endsection
 
+@endsection
