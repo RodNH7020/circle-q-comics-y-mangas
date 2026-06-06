@@ -10,6 +10,8 @@ USE App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\CarritoController;
 
+use App\Http\Controllers\ProductoController;
+
 // Login
 Route::get('/login', [AuthController::class, 'formularioLogin'])
     ->name('login');
@@ -84,7 +86,7 @@ Route::post('/contacto-enviar', [ContactoController::class, 'procesar'])->name('
 //Con doble proteccion
 // auth verifica que el usuario este logueado
 //rol:admin verifica que sea admin su rol
-Route::middleware(['auth', 'rol:admin'])->group(function(){
+Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin',[AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
 
@@ -95,7 +97,7 @@ Route::get('/cliente', function () {
 
 
 //rutas del cliente 
-Route::middleware(['auth', 'rol:cliente'])->group(function () { 
+Route::middleware(['auth', 'role:cliente'])->group(function () { 
     // Mostrar el carrito 
     Route::get('/carrito', [CarritoController::class, 'index']) 
                           ->name('cliente.carrito'); 
@@ -120,3 +122,23 @@ Route::middleware(['auth', 'rol:cliente'])->group(function () {
         return view('backend.usuarios.compra-confirmada'); 
     })->name('compra.confirmada'); 
     });
+
+
+    Route::get('/admin/productos/create',
+    [ProductoController::class, 'create']
+);
+
+
+Route::get('/admin/productos',
+    [ProductoController::class, 'index']
+)->name('productos.index');
+
+Route::get(
+    '/admin/productos/{id}/edit',
+    [ProductoController::class, 'edit']
+)->name('productos.edit');
+
+Route::put(
+    '/admin/productos/{id}',
+    [ProductoController::class, 'update']
+)->name('productos.update');

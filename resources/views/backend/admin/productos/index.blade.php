@@ -17,6 +17,7 @@
                 <th>Precio</th>
                 <th>Stock</th>
                 <th>Activo</th>
+                <th>Acciones</th>
             </tr>
         </thead>
 
@@ -35,6 +36,13 @@
                 <td>
                     {{ $producto->activo ? 'Sí' : 'No' }}
                 </td>
+
+                 <td>
+                    <a href="{{ route('productos.edit', $producto->id) }}"
+                     class="btn btn-warning btn-sm">
+                      Editar
+                    </a>
+                 </td>
             </tr>
 
         @endforeach
@@ -42,6 +50,11 @@
         </tbody>
 
     </table>
+
+    <a href="/admin/productos/create"
+   class="btn btn-success mb-3">
+    Nuevo Producto
+    </a>
 
 </div>
 
