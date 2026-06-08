@@ -87,4 +87,17 @@ class ProductoController extends Controller
         return redirect('/admin/productos')
             ->with('success', 'Producto actualizado correctamente');
     }
+
+
+    public function destroy($id)
+    {
+        $producto = Producto::findOrFail($id);
+
+        $producto->activo = false;
+
+        $producto->save();
+
+        return redirect('/admin/productos')
+            ->with('success', 'Producto desactivado correctamente');
+    }
 }

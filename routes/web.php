@@ -146,3 +146,8 @@ Route::put(
 Route::post('/admin/productos',
     [ProductoController::class, 'store']
 )->name('productos.store');
+
+Route::delete(
+    '/admin/productos/{id}',
+    [ProductoController::class, 'destroy']
+)->name('productos.destroy');
