@@ -15,23 +15,9 @@ class User extends Authenticatable
     // Le indica a Laravel que use la tabla "usuarios"
     protected $table = 'usuarios';
 
-    protected $fillable = [
-        'nombre',
-        'apellido',
-        'email',
-        'password',
-        'telefono',
-        'provincia',
-        'ciudad',
-        'direccion',
-        'codigopostal',
-        'role',
-    ];
+   
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    
 
     protected function casts(): array
     {
@@ -40,4 +26,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    protected $fillable = [
+    'nombre', 
+    'apellido', 
+    'email', 
+    'password', 
+    'telefono', 
+    'provincia', 
+    'ciudad', 
+    'direccion', 
+    'codigopostal', 
+    'role', 
+    'remember_token' 
+];
 }

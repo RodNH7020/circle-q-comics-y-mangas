@@ -61,7 +61,7 @@ public function autenticar(Request $request){
     if(Auth::user()->role === 'admin'){
          return redirect('/admin');
     }
-    return redirect('/cliente'); // si no es admin, es cliente 
+    return redirect('/home'); // si no es admin, es cliente 
    }
 // Si las credenciales son incorrectas, vuelve al login con error
     return back()->withErrors([ 'email' => 'Email o contraseña incorrectos' ]);
@@ -75,4 +75,48 @@ public function autenticar(Request $request){
     $request->session()->regenerateToken();
     return redirect('/login');
    }  
+
+   public function perfil()
+   {
+    // Obtiene al usuario que está conectado actualmente
+    $usuario = auth()->user();
+    
+    // Retorna la vista pasando el usuario
+    return view('backend.usuarios.perfil', compact('usuario'));
+   } 
+
+// Muestra el formulario con los datos actuales para poder modificar el cliente los cambios 
+public function formularioEditar()
+{
+    $usuario = auth()->user();
+    return view('backend.usuarios.editar', compact('usuario'));
+}
+
+// Procesa la actualización
+public function actualizar(Request $request)
+{
+    $usuario = auth()->user();
+
+    // 1. Validamos todos los campos que el usuario puede editar
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'apellido' => 'required|string|max:255',
+        'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
+        'direccion' => 'required|string|max:150',
+        'ciudad' => 'required|string|max:150',
+        'provincia' => 'required|string|max:150',
+        'codigopostal' => 'required|string|max:20',
+    ]);
+
+    // 2. Actualizamos solo los campos validados
+    $usuario->update($request->only([
+        'nombre', 'apellido', 'email', 'direccion', 'ciudad', 'provincia', 'codigopostal'
+    ]));
+
+    // 3. Redirigimos al perfil con un mensaje de éxito
+    return redirect()->route('perfil')->with('success', 'Tus datos se han actualizado correctamente.');
+}
+
+
+
 }

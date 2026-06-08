@@ -3,6 +3,7 @@
 <head>
 <title>@yield('title')</title>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -164,38 +165,50 @@ footer {
     <img src="/images/logo.png" style="height: 60px;">
   </a>
 
-  <!-- BOTÓN HAMBURGUESA -->
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <!-- CONTENIDO -->
   <div class="collapse navbar-collapse" id="navbarNav">
-    <div class="ms-auto d-flex flex-column flex-lg-row gap-3">
+    <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
   
-      <a class="nav-link text-white {{ request()->is('quienes-somos') ? 'active-link' : '' }}" href="/quienes-somos">Quiénes somos</a>
+      <li class="nav-item"><a class="nav-link text-white {{ request()->is('quienes-somos') ? 'active-link' : '' }}" href="/quienes-somos">Quiénes somos</a></li>
+      <li class="nav-item"><a class="nav-link text-white {{ request()->is('comercializacion') ? 'active-link' : '' }}" href="/comercializacion">Comercialización</a></li>
+      <li class="nav-item"><a class="nav-link text-white {{ request()->is('informacion-de-contacto') ? 'active-link' : '' }}" href="/informacion-de-contacto">Información de Contactos</a></li>
+      <li class="nav-item"><a class="nav-link text-white {{ request()->is('catalogo') ? 'active-link' : '' }}" href="/catalogo">Catálogo</a></li>
+      <li class="nav-item"><a class="nav-link text-white {{ request()->is('terminos-y-usos') ? 'active-link' : '' }}" href="/terminos-y-usos">Términos y usos</a></li>
+      
 
-      <a class="nav-link text-white {{ request()->is('comercializacion') ? 'active-link' : '' }}" href="/comercializacion">Comercialización</a>
+      @guest
+        <li class="nav-item"><a class="nav-link text-white" href="{{ route('login') }}">Iniciar Sesión</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{{ route('register') }}">Registrarse</a></li>
+      @endguest
 
-      <a class="nav-link text-white {{ request()->is('informacion-de-contacto') ? 'active-link' : '' }}" href="/informacion-de-contacto">Información de Contactos</a>
+      @auth
+        @if(auth()->check() && auth()->user()->role == 'user')
+          <li class="nav-item"><a href="{{ route('perfil') }}" class="nav-link text-white">Hola, {{ auth()->user()->nombre }}!</a></li>
+          <li class="nav-item"><a href="{{ route('cliente.carrito') }}" class="nav-link text-white"><i class="fas fa-shopping-cart"></i> Carrito</a></li>
+          <li class="nav-item">
+            <form action="{{ route('logout') }}" method="POST" class="m-0">
+                @csrf
+                <button type="submit" class="nav-link text-white border-0 bg-transparent">Cerrar Sesión</button>
+            </form>
+          </li>
+        @endif
 
-      <a class="nav-link text-white {{ request()->is('catalogo') ? 'active-link' : '' }}" href="/catalogo">Catálogo</a>
+      @endauth
 
-      <a class="nav-link text-white {{ request()->is('terminos-y-usos') ? 'active-link' : '' }}" href="/terminos-y-usos">Términos y usos</a>
-
-      <a class="nav-link text-white {{ request()->is('consultas') ? 'active-link' : '' }}" href="/consultas">Consultas</a>
-    </div>
+    </ul>
   </div>
-</nav>
-
-<div class="main-content">
+</nav> <div class="main-content">
   <div class="container">
     @yield('content')
   </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<footer class="mt-auto pt-5 pb-4" style="background-color: rgba(120, 0, 0, 0.9); color: white;">
 
 <footer class="mt-auto pt-5 pb-4" style="background-color: rgba(120, 0, 0, 0.9); color: white;">
   <div class="container">

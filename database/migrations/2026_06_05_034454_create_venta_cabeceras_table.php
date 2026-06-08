@@ -6,22 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('venta_cabeceras', function (Blueprint $table) {
+        Schema::create('ventas_cabecera', function (Blueprint $table) {
             $table->id();
+            $table->timestamp('fecha_venta')->nullable();
+            
+            // MODIFICA ESTA LÍNEA: Cambiamos 'users' por 'usuarios'
+            $table->foreignId('user_id')->constrained('usuarios')->onDelete('cascade');
+            
+            $table->string('estado')->default('carrito'); 
+            $table->decimal('total', 10, 2)->default(0);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('venta_cabeceras');
+        Schema::dropIfExists('ventas_cabecera');
     }
 };

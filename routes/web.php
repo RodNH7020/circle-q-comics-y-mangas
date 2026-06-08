@@ -91,43 +91,45 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 });
 
 
-Route::get('/cliente', function () {
-    return view('backend.usuarios.cliente');
-}); // DEJO MIENTRA TANTO PERO HAY QUE BORRAR IGUAL SE PISA 
-
 
 //rutas del cliente 
-Route::middleware(['auth', 'role:cliente'])->group(function () { 
-    // Mostrar el carrito 
-    Route::get('/carrito', [CarritoController::class, 'index']) 
-                          ->name('cliente.carrito'); 
-                          
-    // Agregar un producto 
-    Route::post('/carrito/agregar', [CarritoController::class, 'agregar']) 
-                                   ->name('carrito.agregar'); 
-                                   
-    // Eliminar un producto 
-    Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar']) 
-                                           ->name('carrito.eliminar'); 
-                                           
-    // Confirmar la compra 
-    Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar']) 
-                                     ->name('carrito.confirmar'); 
- 
-    // Vista de compra confirmada (protegida: redirige si no hay sesión) 
+// RUTAS PROTEGIDAS PARA EL CLIENTE (USER)
+Route::middleware(['auth', 'role:user'])->group(function () { 
+    // ... aquí mantienes tus rutas de carrito que ya tenías ...
+    Route::get('/carrito', [CarritoController::class, 'index'])->name('cliente.carrito');
+
+    Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar'); 
+
+    Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar'); 
+
+    Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])->name('carrito.confirmar'); 
+
     Route::get('/compra-confirmada', function () { 
-        if (!session('total')) { 
-            return redirect()->route('cliente.dashboard'); 
-        } 
+        if (!session('total')) return redirect()->route('home'); // Asegúrate que esta ruta exista
         return view('backend.usuarios.compra-confirmada'); 
-    })->name('compra.confirmada'); 
-    });
+        })->name('compra.confirmada'); 
+        });
+
+
+
+
+
+
+
+
 
 
     Route::get('/admin/productos/create',
     [ProductoController::class, 'create']
-);
+     );
+    // MANDA A PERFIL 
 
+// Ruta para ver el perfil (la que ya tenías)
+Route::get('/perfil', [AuthController::class, 'perfil'])->name('perfil')->middleware('auth');
+
+// RUTAS NUEVAS PARA EDITAR (Agrega estas dos líneas)
+Route::get('/perfil/editar', [AuthController::class, 'formularioEditar'])->name('perfil.editar')->middleware('auth');
+Route::post('/perfil/actualizar', [AuthController::class, 'actualizar'])->name('perfil.actualizar')->middleware('auth');
 
 Route::get('/admin/productos',
     [ProductoController::class, 'index']

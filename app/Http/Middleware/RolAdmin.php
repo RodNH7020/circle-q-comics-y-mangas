@@ -8,13 +8,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RolAdmin
 {
-    public function handle(Request $request, Closure $next): Response
+    // Agregamos el parámetro $role aquí
+    public function handle(Request $request, Closure $next, $role): Response
     {
         if (!auth()->check()) {
             return redirect('/login');
         }
 
-        if (auth()->user()->role !== 'admin') {
+        // Ahora, en lugar de preguntar si es 'admin', 
+        // preguntamos si el rol del usuario coincide con el parámetro $role que viene de la ruta
+        if (auth()->user()->role !== $role) {
             abort(403, 'Acceso denegado.');
         }
 
