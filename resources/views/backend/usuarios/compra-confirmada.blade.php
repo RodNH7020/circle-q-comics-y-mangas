@@ -1,5 +1,4 @@
-@extends('layouts.app') {{-- Usá el mismo layout de tu proyecto --}}
-
+@extends('layouts.app')
 @section('content')
 <div class="container my-5 text-center">
     <div class="card p-5 shadow-sm mx-auto" style="max-width: 600px;">
@@ -21,10 +20,10 @@
                 @foreach(session('items') as $item)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
-                            <strong>{{ $item->producto->nombre }}</strong>
-                            <small class="text-muted d-block">Cantidad: {{ $item->cantidad }}</small>
+                            <strong>{{ $item['producto']['nombre']}}</strong>
+                            <small class="text-muted d-block">Cantidad: {{$item['cantidad'] }}</small>
                         </div>
-                        <span class="text-muted">${{ number_format($item->subtotal, 2, ',', '.') }}</span>
+                        <span class="text-muted">${{ number_format($item['subtotal'], 2, ',', '.') }}</span>
                     </li>
                 @endforeach
             @endif
@@ -36,7 +35,7 @@
         </div>
 
         {{-- Botón para volver --}}
-        <a href="{{ route('cliente.dashboard') }}" class="btn btn-primary btn-lg w-100">Volver a mi Panel</a>
+        <a href="{{ route('home') }}" class="btn btn-primary btn-lg w-100">Volver a mi Panel</a>
     </div>
 </div>
 @endsection

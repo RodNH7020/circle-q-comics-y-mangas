@@ -142,3 +142,4 @@ Route::delete(
     '/admin/productos/{id}',
     [ProductoController::class, 'destroy']
 )->name('productos.destroy');
+Route::get('/perfil/compra/{id}', [App\Http\Controllers\AuthController::class, 'verFactura'])->name('perfil.factura');
