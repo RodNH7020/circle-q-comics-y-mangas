@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\VentaCabecera;
 
 class AuthController extends Controller
 {
@@ -76,14 +77,20 @@ public function autenticar(Request $request){
     return redirect('/login');
    }  
 
-   public function perfil()
-   {
-    // Obtiene al usuario que está conectado actualmente
-    $usuario = auth()->user();
-    
-    // Retorna la vista pasando el usuario
-    return view('backend.usuarios.perfil', compact('usuario'));
-   } 
+  public function perfil()
+    {
+        // 1. Obtiene al usuario conectado
+        $usuario = auth()->user();
+        
+        // 2. Busca las compras confirmadas de ese usuario
+        $compras = \App\Models\VentaCabecera::where('user_id', $usuario->id)
+                                ->where('estado', 'confirmado')
+                                ->orderBy('fecha_venta', 'desc')
+                                ->get();
+        
+        // 3. Pasamos AMBAS variables a la vista
+        return view('backend.usuarios.perfil', compact('usuario', 'compras'));
+    }
 
 // Muestra el formulario con los datos actuales para poder modificar el cliente los cambios 
 public function formularioEditar()
@@ -116,7 +123,19 @@ public function actualizar(Request $request)
     // 3. Redirigimos al perfil con un mensaje de éxito
     return redirect()->route('perfil')->with('success', 'Tus datos se han actualizado correctamente.');
 }
+public function verFactura($id)
+    {
+        // 1. Buscamos la compra específica, asegurándonos de que le pertenezca al usuario logueado
+        $compra = \App\Models\VentaCabecera::where('id', $id)
+                    ->where('user_id', auth()->id())
+                    ->firstOrFail();
 
+        // 2. Traemos los detalles (los cómics que están adentro de esa compra)
+        $detalles = $compra->detalles()->with('producto')->get();
+
+        // 3. Mandamos los datos a la vista de la factura
+        return view('backend.usuarios.factura', compact('compra', 'detalles'));
+    }
 
 
 }
