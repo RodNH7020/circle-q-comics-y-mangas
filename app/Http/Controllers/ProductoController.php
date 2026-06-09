@@ -100,4 +100,14 @@ class ProductoController extends Controller
         return redirect('/admin/productos')
             ->with('success', 'Producto desactivado correctamente');
     }
+    // ESTA ES LA FUNCIÓN NUEVA QUE FALTABA
+    
+    public function catalogoPublico()
+    {
+        // Traemos los productos activos desde la base de datos
+        $comics = Producto::where('activo', true)->orderBy('nombre', 'asc')->get();
+
+        // Mandamos los productos a tu vista del catálogo
+        return view('catalogo', compact('comics'));
+    }
 }

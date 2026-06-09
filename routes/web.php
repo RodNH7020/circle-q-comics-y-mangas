@@ -67,13 +67,11 @@ Route::get('/politicas-de-privacidad', function () {
     return view('politicas-de-privacidad');
 });
 
-Route::get('/catalogo', function () {
-    return view('catalogo');
-});
+//Route::get('/catalogo', function () {
+  //  return view('catalogo');
+//});
+Route::get('/catalogo', [ProductoController::class, 'catalogoPublico'])->name('catalogo');
 
-Route::get('/consultas', function () {
-    return view('consultas');
-});
 
 Route::get('/informacion-de-contacto', function () {
     return view('informacion-de-contacto');
@@ -98,7 +96,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     // ... aquí mantienes tus rutas de carrito que ya tenías ...
     Route::get('/carrito', [CarritoController::class, 'index'])->name('cliente.carrito');
 
-    Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar'); 
+    Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar');
 
     Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar'); 
 
@@ -109,15 +107,6 @@ Route::middleware(['auth', 'role:user'])->group(function () {
         return view('backend.usuarios.compra-confirmada'); 
         })->name('compra.confirmada'); 
         });
-
-
-
-
-
-
-
-
-
 
     Route::get('/admin/productos/create',
     [ProductoController::class, 'create']
