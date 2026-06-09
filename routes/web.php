@@ -147,3 +147,14 @@ Route::put(
     '/admin/productos/{id}/toggle',
     [ProductoController::class, 'toggleActivo']
 )->name('productos.toggle');
+
+Route::middleware(['auth', 'role:admin'])->group(function() { 
+    Route::get(
+        '/admin', 
+        [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+        Route::get(
+            '/admin/usuarios',
+            [AdminController::class, 'usuarios'])->name('admin.usuarios');
+        
+});
