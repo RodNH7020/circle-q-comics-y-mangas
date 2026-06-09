@@ -25,3 +25,5 @@
 <a href="/admin/ventas">
     Ver Ventas
 </a>
+
+@endsection

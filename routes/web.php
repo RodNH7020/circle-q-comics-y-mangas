@@ -142,4 +142,12 @@ Route::delete(
     '/admin/productos/{id}',
     [ProductoController::class, 'destroy']
 )->name('productos.destroy');
+<<<<<<< HEAD
 Route::get('/perfil/compra/{id}', [App\Http\Controllers\AuthController::class, 'verFactura'])->name('perfil.factura');
+=======
+
+Route::put(
+    '/admin/productos/{id}/toggle',
+    [ProductoController::class, 'toggleActivo']
+)->name('productos.toggle');
+>>>>>>> 9538913d88791d55f96d1c7bed61be58f854cd53

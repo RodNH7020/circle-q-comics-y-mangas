@@ -110,4 +110,18 @@ class ProductoController extends Controller
         // Mandamos los productos a tu vista del catálogo
         return view('catalogo', compact('comics'));
     }
+
+
+
+
+    public function toggleActivo($id)
+    {
+        $producto = Producto::findOrFail($id);
+
+        $producto->activo = !$producto->activo;
+
+        $producto->save();
+
+        return redirect('/admin/productos');
+    }
 }

@@ -12,8 +12,6 @@
     @csrf
     @method('PUT')
 
-        @csrf
-
         <div class="mb-3">
             <label>Nombre</label>
             <input type="text"
@@ -24,9 +22,9 @@
 
         <div class="mb-3">
             <label>Descripción</label>
-            <textarea name="descripcion"
-                    class="form-control"
-                    value="{{ $producto->descripcion }}"> </textarea>
+            <textarea
+                name="descripcion"
+                class="form-control">{{ $producto->descripcion }}</textarea>
          </div>            
 
         <div class="mb-3">
