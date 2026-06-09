@@ -185,18 +185,50 @@ footer {
       @endguest
 
       @auth
-        @if(auth()->check() && auth()->user()->role == 'user')
-          <li class="nav-item"><a href="{{ route('perfil') }}" class="nav-link text-white">Hola, {{ auth()->user()->nombre }}!</a></li>
-          <li class="nav-item"><a href="{{ route('cliente.carrito') }}" class="nav-link text-white"><i class="fas fa-shopping-cart"></i> Carrito</a></li>
-          <li class="nav-item">
-            <form action="{{ route('logout') }}" method="POST" class="m-0">
-                @csrf
-                <button type="submit" class="nav-link text-white border-0 bg-transparent">Cerrar Sesión</button>
-            </form>
-          </li>
-        @endif
 
-      @endauth
+    <li class="nav-item">
+        <span class="nav-link text-white">
+            Hola, {{ auth()->user()->nombre }}
+        </span>
+    </li>
+
+    @if(auth()->user()->role == 'admin')
+
+        <li class="nav-item">
+            <a href="{{ route('admin.dashboard') }}"
+               class="nav-link text-white">
+                Panel Admin
+            </a>
+        </li>
+
+    @else
+
+        <li class="nav-item">
+            <a href="{{ route('cliente.carrito') }}"
+               class="nav-link text-white">
+                Carrito
+            </a>
+        </li>
+
+    @endif
+
+    <li class="nav-item">
+        <form action="{{ route('logout') }}"
+              method="POST"
+              class="m-0">
+
+            @csrf
+
+            <button
+                type="submit"
+                class="nav-link text-white border-0 bg-transparent">
+                Cerrar Sesión
+            </button>
+
+        </form>
+    </li>
+
+@endauth
 
     </ul>
   </div>

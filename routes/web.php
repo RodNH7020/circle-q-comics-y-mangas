@@ -142,3 +142,8 @@ Route::delete(
     '/admin/productos/{id}',
     [ProductoController::class, 'destroy']
 )->name('productos.destroy');
+
+Route::put(
+    '/admin/productos/{id}/toggle',
+    [ProductoController::class, 'toggleActivo']
+)->name('productos.toggle');

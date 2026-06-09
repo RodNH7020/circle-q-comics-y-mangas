@@ -38,11 +38,42 @@
                 </td>
 
                  <td>
-                    <a href="{{ route('productos.edit', $producto->id) }}"
-                     class="btn btn-warning btn-sm">
-                      Editar
-                    </a>
-                 </td>
+
+    <td>
+
+    <a href="{{ route('productos.edit', $producto->id) }}"
+       class="btn btn-warning btn-sm">
+        Editar
+    </a>
+
+    <form action="{{ route('productos.toggle', $producto->id) }}"
+          method="POST"
+          style="display:inline;">
+
+        @csrf
+        @method('PUT')
+
+        @if($producto->activo)
+
+            <button
+                type="submit"
+                class="btn btn-danger btn-sm">
+                Desactivar
+            </button>
+
+        @else
+
+            <button
+                type="submit"
+                class="btn btn-success btn-sm">
+                Activar
+            </button>
+
+        @endif
+
+    </form>
+
+</td>
             </tr>
 
         @endforeach
@@ -55,29 +86,6 @@
    class="btn btn-success mb-3">
     Nuevo Producto
     </a>
-
-    <td>
-
-    <a href="{{ route('productos.edit', $producto->id) }}"
-       class="btn btn-warning btn-sm">
-        Editar
-    </a>
-
-    <form action="{{ route('productos.destroy', $producto->id) }}"
-          method="POST"
-          style="display:inline;">
-
-        @csrf
-        @method('DELETE')
-
-        <button
-            type="submit"
-            class="btn btn-danger btn-sm"
-            onclick="return confirm('¿Desea desactivar este producto?')">
-            Desactivar
-        </button>
-
-    </form>
 
 </td>
 
