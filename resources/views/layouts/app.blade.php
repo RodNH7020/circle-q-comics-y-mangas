@@ -187,9 +187,9 @@ footer {
       @auth
 
     <li class="nav-item">
-        <span class="nav-link text-white">
+        <a href="{{ route('perfil') }}" class="nav-link text-white {{ request()->is('perfil') ? 'active-link' : '' }}">
             Hola, {{ auth()->user()->nombre }}
-        </span>
+        </a>
     </li>
 
     @if(auth()->user()->role == 'admin')

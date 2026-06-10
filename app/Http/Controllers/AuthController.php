@@ -104,23 +104,22 @@ public function actualizar(Request $request)
 {
     $usuario = auth()->user();
 
-    // 1. Validamos todos los campos que el usuario puede editar
+    // 1. Validamos los campos (sin el email, pero con el teléfono)
     $request->validate([
         'nombre' => 'required|string|max:255',
         'apellido' => 'required|string|max:255',
-        'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
+        'telefono' => 'nullable|string|max:20', // Agregamos el teléfono
         'direccion' => 'required|string|max:150',
         'ciudad' => 'required|string|max:150',
         'provincia' => 'required|string|max:150',
         'codigopostal' => 'required|string|max:20',
     ]);
 
-    // 2. Actualizamos solo los campos validados
+    // 2. Actualizamos incluyendo el teléfono
     $usuario->update($request->only([
-        'nombre', 'apellido', 'email', 'direccion', 'ciudad', 'provincia', 'codigopostal'
+        'nombre', 'apellido', 'telefono', 'direccion', 'ciudad', 'provincia', 'codigopostal'
     ]));
 
-    // 3. Redirigimos al perfil con un mensaje de éxito
     return redirect()->route('perfil')->with('success', 'Tus datos se han actualizado correctamente.');
 }
 public function verFactura($id)

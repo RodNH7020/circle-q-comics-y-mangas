@@ -36,8 +36,8 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-return view('home');
-});
+    return view('home');
+})->name('home'); // <--- Le agregamos el nombre aquí
 
 Route::get('/quienes-somos', function () {
 return view('quienes-somos');
@@ -142,15 +142,14 @@ Route::delete(
     '/admin/productos/{id}',
     [ProductoController::class, 'destroy']
 )->name('productos.destroy');
-<<<<<<< HEAD
+
 Route::get('/perfil/compra/{id}', [App\Http\Controllers\AuthController::class, 'verFactura'])->name('perfil.factura');
-=======
+
 
 Route::put(
     '/admin/productos/{id}/toggle',
     [ProductoController::class, 'toggleActivo']
 )->name('productos.toggle');
-<<<<<<< HEAD
 
 Route::middleware(['auth', 'role:admin'])->group(function() { 
     Route::get(
@@ -162,6 +161,4 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
             [AdminController::class, 'usuarios'])->name('admin.usuarios');
         
 });
-=======
->>>>>>> 9538913d88791d55f96d1c7bed61be58f854cd53
->>>>>>> 49691d09626b82026c3da4c8bf950c99e0568998
+
