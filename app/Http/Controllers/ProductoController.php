@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Producto;
 
@@ -102,15 +101,59 @@ class ProductoController extends Controller
     }
     // ESTA ES LA FUNCIÓN NUEVA QUE FALTABA
     
-    public function catalogoPublico()
+// Pasamos el Request como argumento para poder capturar los datos del formulario de la vista
+    public function catalogoPublico(Request $request)
     {
-        // Traemos los productos activos desde la base de datos
-        $comics = Producto::where('activo', true)->orderBy('nombre', 'asc')->get();
+        // 1. Empezamos la consulta filtrando solo los productos que estén activos
+        $query = Producto::where('activo', true);
 
-        // Mandamos los productos a tu vista del catálogo
-        return view('catalogo', compact('comics'));
+        // EXTRA: Obtenemos TODAS las editoriales únicas registradas en la base de datos
+        // Esto evita que el bucle @foreach de la vista falle por no encontrar la variable
+        $editorialesDisponibles = Producto::where('activo', true)
+            ->whereNotNull('editorial')
+            ->where('editorial', '!=', '')
+            ->pluck('editorial')
+            ->unique()
+            ->sort();
+
+        // 2. BUSCADOR INTELIGENTE: Nombre, Descripción, Editorial o Tipo (Manga/Comic)
+        if ($request->has('buscar') && $request->buscar != '') {
+            $buscar = $request->buscar;
+            
+            $query->where(function($q) use ($buscar) {
+                $q->where('nombre', 'LIKE', "%$buscar%")
+                  ->orWhere('descripcion', 'LIKE', "%$buscar%")
+                  ->orWhere('editorial', 'LIKE', "%$buscar%")
+                  ->orWhere('tipo', 'LIKE', "%$buscar%");
+            });
+        }
+
+        // 3. FILTRO POR CATEGORÍA DIRECTO (Desde el select de la vista)
+        if ($request->has('categoria') && $request->categoria != '') {
+            $query->where('tipo', $request->categoria);
+        }
+        
+        // FILTRO POR EDITORIAL SELECCIONADA EN EL SIDEBAR
+        if ($request->has('editorial_filtro') && $request->editorial_filtro != '') {
+            $query->where('editorial', $request->editorial_filtro);
+        }
+
+        // 4. ORDENAMIENTO DE PRECIOS O ALFABÉTICO
+        $orden = $request->get('orden', 'az'); // Si no eligen nada, por defecto es A-Z
+
+        if ($orden == 'precio_asc') {
+            $query->orderBy('precio', 'asc');
+        } elseif ($orden == 'precio_desc') {
+            $query->orderBy('precio', 'desc');
+        } else {
+            $query->orderBy('nombre', 'asc'); // El orden clásico que ya tenías
+        }
+
+        // 5. Ejecutamos la consulta final
+        $comics = $query->get();
+
+        return view('catalogo', compact('comics', 'request', 'editorialesDisponibles'));
     }
-
 
 
 
