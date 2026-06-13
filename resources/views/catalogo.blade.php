@@ -20,7 +20,13 @@
                      COLUMNA IZQUIERDA: MENÚ LATERAL (En mobile se acomoda arriba)
                      ======================================================== -->
                 <div class="col-12 col-md-3">
-                    
+                    <button class="btn btn-danger w-100 d-md-none mb-3 d-flex align-items-center justify-content-center gap-2" 
+                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseFiltros">
+                   <i class="bi bi-filter-left fs-5"></i> 
+                   <span>Ver / Ocultar Filtros</span>
+                    </button>
+
+    <div class="collapse d-md-block" id="collapseFiltros">
                     <!-- Categorías -->
                     <div class="filter-group mb-4">
                         <h5 class="fw-bold text-uppercase pb-2 border-bottom">Categorías</h5>
@@ -66,7 +72,7 @@
     <a href="{{ url()->current() }}" class="btn btn-outline-danger btn-sm w-100 mt-2">
         Limpiar Filtros
     </a>
-</div>
+</div></div>
 
                 <!-- ========================================================
                      COLUMNA DERECHA: BARRA SUPERIOR Y PRODUCTOS

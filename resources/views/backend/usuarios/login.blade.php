@@ -1,10 +1,14 @@
 @extends('layouts.app')
-
+@section('title', 'Iniciar Sesión')
 @section('content')
 
 <div class="container mt-5">
+     <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 fondo-texto p-4 rounded shadow">
+            <h3 class="mb-4 text-center">
+                Iniciar Sesión
+            </h3>
 
-    <h2>Iniciar Sesión</h2>
 
     <form action="{{ route('login.post') }}" method="POST">
 
@@ -42,9 +46,11 @@
         ¿No tenés cuenta?
         <a href="{{ route('register') }}">
             Registrate
-        </a>
-    </p>
+         </a>
+            </p>
 
+        </div>
+    </div>
 </div>
 
 @endsection

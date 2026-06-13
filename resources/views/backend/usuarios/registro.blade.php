@@ -1,10 +1,13 @@
 @extends('layouts.app')
-
+@section('title', 'Regristo')
 @section('content')
 
-<div class="container mt-5">
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 fondo-texto p-4 rounded shadow">
 
-    <h2>Crear Cuenta en Circle Q</h2>
+    <h3 class="mb-4 text-center">
+    Crear Cuenta </h3>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -108,15 +111,35 @@
                 class="form-control"
                 required>
         </div>
+      <div class="form-check mb-3">
+    <input
+        class="form-check-input"
+        type="checkbox"
+        name="terminos"
+        id="terminos"
+        required>
 
+     <label class="form-check-label" for="terminos">
+        Acepto los
+        <a href="/terminos-y-usos" target="_blank">
+            Términos y Condiciones
+        </a>
+        y la
+        <a href="/politicas-de-privacidad" target="_blank">
+            Política de Privacidad
+        </a>
+    </label>
+</div>
         <button
-            type="submit"
-            class="btn btn-success">
-            Registrarse
-        </button>
+    type="submit"
+    class="btn btn-success w-100">
+    Registrarse
+</button>
 
     </form>
 
 </div>
-
+        </div>
+    </div>
+</div>
 @endsection
