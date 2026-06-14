@@ -138,8 +138,9 @@ public function actualizar(Request $request, $id)
         return back()->with('success', 'Producto eliminado');
     }
 
-    public function confirmar()
-    {
+public function confirmar()
+{
+    return \DB::transaction(function () {
         $carrito = $this->obtenerCarrito();
         
         if ($carrito->detalles()->count() === 0) {
@@ -147,6 +148,13 @@ public function actualizar(Request $request, $id)
         }
 
         $items = $carrito->detalles()->with('producto')->get();
+
+        foreach ($items as $item) {
+            $producto = $item->producto;
+            $producto->stock -= $item->cantidad;
+            $producto->save();
+        }
+
         $total = $carrito->total;
 
         $carrito->update([
@@ -157,5 +165,6 @@ public function actualizar(Request $request, $id)
         return redirect()->route('compra.confirmada')
                          ->with('items', $items)
                          ->with('total', $total);
-    }
+    });
+}
 }
