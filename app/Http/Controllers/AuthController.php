@@ -122,18 +122,18 @@ public function actualizar(Request $request)
 
     return redirect()->route('perfil')->with('success', 'Tus datos se han actualizado correctamente.');
 }
-public function verFactura($id)
+   public function verFactura($id)
     {
-        // 1. Buscamos la compra específica, asegurándonos de que le pertenezca al usuario logueado
-        $compra = \App\Models\VentaCabecera::where('id', $id)
+        // Buscamos la compra y le decimos a Laravel que traiga también 
+        // los datos del usuario y los detalles de los productos en una sola consulta.
+        // El 'where' garantiza que nadie más pueda ver esta factura.
+        $compra = \App\Models\VentaCabecera::with(['usuario', 'detalles.producto'])
+                    ->where('id', $id)
                     ->where('user_id', auth()->id())
                     ->firstOrFail();
 
-        // 2. Traemos los detalles (los cómics que están adentro de esa compra)
-        $detalles = $compra->detalles()->with('producto')->get();
-
-        // 3. Mandamos los datos a la vista de la factura
-        return view('backend.usuarios.factura', compact('compra', 'detalles'));
+        // Mandamos la variable a la vista (ya contiene todo adentro)
+        return view('backend.usuarios.factura', compact('compra'));
     }
 
 

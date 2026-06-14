@@ -12,7 +12,8 @@
             <h1 class="fw-bold">Catálogo de Productos</h1>
         </div>
 
-        <form action="{{ url()->current() }}" method="GET" id="form-filtros" class="m-0">
+        <form action="{{ url()->current() }}" method="GET" id="form-filtros"></form>
+           <div class="m-0">
             
             <div class="row g-4">
                 
@@ -33,17 +34,17 @@
                         <div class="d-flex flex-column gap-2 mt-2">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="categoria" id="cat_todas" value="" 
-                                       {{ !isset($request->categoria) || $request->categoria == '' ? 'checked' : '' }} onchange="this.form.submit()">
+                                       {{ !isset($request->categoria) || $request->categoria == '' ? 'checked' : '' }} onchange="document.getElementById('form-filtros').submit()">
                                 <label class="form-check-label text-uppercase small" for="cat_todas">Todas</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="categoria" id="cat_manga" value="manga" 
-                                       {{ isset($request->categoria) && $request->categoria == 'manga' ? 'checked' : '' }} onchange="this.form.submit()">
+                                <input class="form-check-input" type="radio" name="categoria" id="cat_manga" value="manga" form="form-filtros"
+                                       {{ isset($request->categoria) && $request->categoria == 'manga' ? 'checked' : '' }} onchange="document.getElementById('form-filtros').submit()">
                                 <label class="form-check-label text-uppercase small" for="cat_manga">Manga</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="categoria" id="cat_comic" value="comic" 
-                                       {{ isset($request->categoria) && $request->categoria == 'comic' ? 'checked' : '' }} onchange="this.form.submit()">
+                                <input class="form-check-input" type="radio" name="categoria" id="cat_comic" value="comic" form="form-filtros"
+                                       {{ isset($request->categoria) && $request->categoria == 'comic' ? 'checked' : '' }} onchange="document.getElementById('form-filtros').submit()">
                                 <label class="form-check-label text-uppercase small" for="cat_comic">Comic</label>
                             </div>
                         </div>
@@ -54,15 +55,15 @@
         <h5 class="fw-bold text-uppercase pb-2 border-bottom">Editoriales</h5>
         <div class="d-flex flex-column gap-2 mt-2">
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="editorial_filtro" id="edit_todas" value="" 
-                       {{ !isset($request->editorial_filtro) || $request->editorial_filtro == '' ? 'checked' : '' }} onchange="this.form.submit()">
+                <input class="form-check-input" type="radio" name="editorial_filtro" id="edit_todas" value="" form="form-filtros"
+                       {{ !isset($request->editorial_filtro) || $request->editorial_filtro == '' ? 'checked' : '' }} onchange="document.getElementById('form-filtros').submit()">
                 <label class="form-check-label text-uppercase small" for="edit_todas">Todas las Editoriales</label>
             </div>
             
             @foreach($editorialesDisponibles as $editorial)
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="editorial_filtro" id="edit_{{ Str::slug($editorial) }}" value="{{ $editorial }}" 
-                           {{ isset($request->editorial_filtro) && $request->editorial_filtro == $editorial ? 'checked' : '' }} onchange="this.form.submit()">
+                    <input class="form-check-input" type="radio" name="editorial_filtro" id="edit_{{ Str::slug($editorial) }}" value="{{ $editorial }}" form="form-filtros"
+                           {{ isset($request->editorial_filtro) && $request->editorial_filtro == $editorial ? 'checked' : '' }} onchange="document.getElementById('form-filtros').submit()">
                     <label class="form-check-label text-uppercase small" for="edit_{{ Str::slug($editorial) }}">{{ $editorial }}</label>
                 </div>
             @endforeach
@@ -85,7 +86,7 @@
                         <!-- Ordenar por (Alineado a la izquierda) -->
                         <div class="col-12 col-sm-5 col-md-4">
                             <label for="orden" class="form-label small text-white mb-1">Ordenar por:</label>
-                            <select name="orden" id="orden" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <select name="orden" id="orden" class="form-select form-select-sm" form="form-filtros" onchange="document.getElementById('form-filtros').submit()">
                                 <option value="az" {{ isset($request) && $request->orden == 'az' ? 'selected' : '' }}>Alfabético (A-Z)</option>
                                 <option value="precio_asc" {{ isset($request) && $request->orden == 'precio_asc' ? 'selected' : '' }}>Precio: Menor a Mayor</option>
                                 <option value="precio_desc" {{ isset($request) && $request->orden == 'precio_desc' ? 'selected' : '' }}>Precio: Mayor a Menor</option>
@@ -99,9 +100,8 @@
                         <div class="col-12 col-sm-6 col-md-5">
                             <label for="buscar" class="form-label small text-white mb-1">Buscar producto:</label>
                             <div class="input-group input-group-sm">
-                                <input type="text" name="buscar" id="buscar" class="form-control" 
-                                       placeholder="Nombre, descripción..." value="{{ $request->buscar ?? '' }}">
-                                <button type="submit" class="btn btn-dark">Buscar</button>
+                                <input type="text" name="buscar" id="buscar" class="form-control" form="form-filtros" placeholder="Nombre, descripción..." value="{{ $request->buscar ?? '' }}">
+                                <button type="submit" form="form-filtros" class="btn btn-dark">Buscar</button>
                             </div>
                         </div>
 
@@ -111,7 +111,7 @@
                     <div class="row g-3 g-md-4">
                         @forelse($comics as $comic)
                         <div class="col-12 col-sm-6 col-md-4 mb-3">
-                            <div class="card h-100 shadow-sm border-0 bg-white">
+                            <div class="card h-100 shadow-sm border-0 bg-light">
                                 
                                 <img src="{{ asset('images/' . $comic->url_imagen) }}" class="card-img-top rounded-0" alt="{{ $comic->nombre }}">
                                 
@@ -139,10 +139,9 @@
                                                 </div>
                                                 
                                                 <button type="submit" class="btn btn-dark btn-sm w-100 rounded-0 py-2 text-uppercase font-monospace">
-                                                    Agregar al carrito
-                                                </button>
-                                            </form>
-                                        @endauth
+                                               Agregar al carrito
+                                              </button>
+</form> @endauth
 
                                         @guest
                                             <div class="input-group input-group-sm mb-2">
@@ -167,8 +166,8 @@
 
                 </div>
             </div>
-        </form>
-
+        
+ </div>
     </div>
 </div>
 
