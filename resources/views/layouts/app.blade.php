@@ -161,7 +161,7 @@ footer {
 <nav class="navbar navbar-expand-lg navbar-dark px-3">
   
   <a class="navbar-brand" href="/home">
-    <img src="/images/logo.png" style="height: 60px;">
+    <img src="/images/logo.png" style="height: 80px;">
   </a>
 
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -185,11 +185,40 @@ footer {
 
       @auth
 
-    <li class="nav-item">
-        <a href="{{ route('perfil') }}" class="nav-link text-white {{ request()->is('perfil') ? 'active-link' : '' }}">
-            Hola, {{ auth()->user()->nombre }}
-        </a>
-    </li>
+    <li class="nav-item dropdown">
+    <a class="nav-link text-white dropdown-toggle fw-bold" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-person-circle"></i> Hola, {{ auth()->user()->nombre }}
+    </a>
+    
+    <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" aria-labelledby="perfilDropdown">
+        <li>
+            <a class="dropdown-item py-2" href="{{ route('perfil') }}">
+                <i class="bi bi-person me-2"></i> Mi Perfil
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item py-2" href="{{ route('perfil.mis-compras') }}">
+                <i class="bi bi-bag-check me-2"></i> Mis Compras
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item py-2" href="{{ route('cliente.carrito') }}">
+                <i class="bi bi-cart3 me-2"></i> Mi Carrito
+            </a>
+        </li>
+        
+        <li><hr class="dropdown-divider"></li>
+        
+        <li>
+            <form action="{{ route('logout') }}" method="POST" class="m-0">
+                @csrf
+                <button type="submit" class="dropdown-item text-danger py-2 fw-bold">
+                    <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
+                </button>
+            </form>
+        </li>
+    </ul>
+</li>
 
     @if(auth()->user()->role == 'admin')
 
@@ -202,12 +231,11 @@ footer {
 
     @else
 
-        <li class="nav-item">
-            <a href="{{ route('cliente.carrito') }}"
-               class="nav-link text-white">
-                Carrito
-            </a>
-        </li>
+       <li class="nav-item">
+    <a href="{{ route('cliente.carrito') }}" class="nav-link text-white">
+        <i class="bi bi-cart3 me-2"></i> 
+    </a>
+       </li>
 
     @endif
 

@@ -1,173 +1,69 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\ContactoController;
-
 use App\Http\Controllers\AuthController;
-
-USE App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarritoController;
-
 use App\Http\Controllers\ProductoController;
 
-// Login
-Route::get('/login', [AuthController::class, 'formularioLogin'])
-    ->name('login');
+// --- RUTAS PÚBLICAS ---
+Route::get('/', function () { return view('welcome'); });
+Route::get('/home', function () { return view('home'); })->name('home');
+Route::get('/quienes-somos', function () { return view('quienes-somos'); });
+Route::get('/comercializacion', function () { return view('comercializacion'); });
+Route::get('/terminos-y-usos', function () { return view('terminos-y-usos'); });
+Route::get('/consultas', function () { return view('consultas'); });
+Route::get('/sucursal', function () { return view('sucursal'); });
+Route::get('/politicas-de-privacidad', function () { return view('politicas-de-privacidad'); });
+Route::get('/informacion-de-contacto', function () { return view('informacion-de-contacto'); });
+Route::post('/contacto-enviar', [ContactoController::class, 'procesar'])->name('contacto.enviar');
 
-Route::post('/login', [AuthController::class, 'autenticar'])
-    ->name('login.post');
+// Login / Registro / Logout
+Route::get('/login', [AuthController::class, 'formularioLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'autenticar'])->name('login.post');
+Route::get('/register', [AuthController::class, 'formularioRegistro'])->name('register');
+Route::post('/register', [AuthController::class, 'registrar'])->name('register.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Registro
-Route::get('/register', [AuthController::class, 'formularioRegistro'])
-    ->name('register');
-
-Route::post('/register', [AuthController::class, 'registrar'])
-    ->name('register.post');
-
-// Logout
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->name('logout');
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home', function () {
-    return view('home');
-})->name('home'); // <--- Le agregamos el nombre aquí
-
-Route::get('/quienes-somos', function () {
-return view('quienes-somos');
-});
-
-
-Route::get('/comercializacion', function () {
-return view('comercializacion');
-});
-
-
-Route::get('/terminos-y-usos', function () {
-    return view('terminos-y-usos');
-}); 
-
-
-Route::get('/consultas', function () {
-    return view('consultas');
-});
-
-Route::get('/sucursal', function () {
-    return view('sucursal');
-});
-
-
-Route::get('/politicas-de-privacidad', function () {
-    return view('politicas-de-privacidad');
-});
-
-//Route::get('/catalogo', function () {
-  //  return view('catalogo');
-//});
+// Catálogo
 Route::get('/catalogo', [ProductoController::class, 'catalogoPublico'])->name('catalogo');
 
-
-Route::get('/informacion-de-contacto', function () {
-    return view('informacion-de-contacto');
-});
-
-Route::post('/contacto-enviar', [ContactoController::class, 'procesar'])->name('contacto.enviar');
-//Auth::routes();
-
-
-//Con doble proteccion
-// auth verifica que el usuario este logueado
-//rol:admin verifica que sea admin su rol
-Route::middleware(['auth', 'role:admin'])->group(function(){
-    Route::get('/admin',[AdminController::class, 'dashboard'])->name('admin.dashboard');
-});
-
-
-
-//rutas del cliente 
-// RUTAS PROTEGIDAS PARA EL CLIENTE (USER)
+// --- RUTAS DE USUARIO (CLIENTE) ---
 Route::middleware(['auth', 'role:user'])->group(function () { 
-    // ... aquí mantienes tus rutas de carrito que ya tenías ...
     Route::get('/carrito', [CarritoController::class, 'index'])->name('cliente.carrito');
-
     Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar');
-Route::put('/carrito/actualizar/{id}', [CarritoController::class, 'actualizar'])->name('carrito.actualizar');
+    Route::put('/carrito/actualizar/{id}', [CarritoController::class, 'actualizar'])->name('carrito.actualizar');
     Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar'); 
-
     Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])->name('carrito.confirmar'); 
-
     Route::get('/compra-confirmada', function () { 
-        if (!session('total')) return redirect()->route('home'); // Asegúrate que esta ruta exista
+        if (!session('total')) return redirect()->route('home');
         return view('backend.usuarios.compra-confirmada'); 
-        })->name('compra.confirmada'); 
-        });
+    })->name('compra.confirmada');
 
-    Route::get('/admin/productos/create',
-    [ProductoController::class, 'create']
-     );
-    // MANDA A PERFIL 
-
-// Ruta para ver el perfil (la que ya tenías)
-Route::get('/perfil', [AuthController::class, 'perfil'])->name('perfil')->middleware('auth');
-
-// RUTAS NUEVAS PARA EDITAR (Agrega estas dos líneas)
-Route::get('/perfil/editar', [AuthController::class, 'formularioEditar'])->name('perfil.editar')->middleware('auth');
-Route::post('/perfil/actualizar', [AuthController::class, 'actualizar'])->name('perfil.actualizar')->middleware('auth');
-
-Route::get('/admin/productos',
-    [ProductoController::class, 'index']
-)->name('productos.index');
-
-Route::get(
-    '/admin/productos/{id}/edit',
-    [ProductoController::class, 'edit']
-)->name('productos.edit');
-
-Route::put(
-    '/admin/productos/{id}',
-    [ProductoController::class, 'update']
-)->name('productos.update');
-
-Route::post('/admin/productos',
-    [ProductoController::class, 'store']
-)->name('productos.store');
-
-Route::delete(
-    '/admin/productos/{id}',
-    [ProductoController::class, 'destroy']
-)->name('productos.destroy');
-
-Route::get('/perfil/compra/{id}', [App\Http\Controllers\AuthController::class, 'verFactura'])->name('perfil.factura');
-
-
-Route::put(
-    '/admin/productos/{id}/toggle',
-    [ProductoController::class, 'toggleActivo']
-)->name('productos.toggle');
-
-Route::middleware(['auth', 'role:admin'])->group(function() { 
-    Route::get(
-        '/admin', 
-        [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
-        Route::get(
-            '/admin/usuarios',
-            [AdminController::class, 'usuarios'])->name('admin.usuarios');
-        
+    // Perfil del usuario
+    Route::get('/perfil', [AuthController::class, 'perfil'])->name('perfil');
+    Route::get('/perfil/editar', [AuthController::class, 'formularioEditar'])->name('perfil.editar');
+    Route::post('/perfil/actualizar', [AuthController::class, 'actualizar'])->name('perfil.actualizar');
+    Route::get('/perfil/compra/{id}', [AuthController::class, 'verFactura'])->name('perfil.factura');
+    Route::get('/perfil/mis-compras', [AuthController::class, 'misCompras'])->name('perfil.mis-compras');
 });
 
-Route::get(
-    '/admin/ventas',
-    [AdminController::class, 'ventas']
-)->name('admin.ventas');
+// --- RUTAS DE ADMINISTRADOR ---
+Route::middleware(['auth', 'role:admin'])->group(function() { 
+    Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/usuarios', [AdminController::class, 'usuarios'])->name('admin.usuarios');
+    
+    // Ventas Admin
+    Route::get('/admin/ventas', [AdminController::class, 'ventas'])->name('admin.ventas');
+    Route::get('/admin/ventas/{id}', [AdminController::class, 'detalleVenta'])->name('admin.ventas.show');
 
-Route::get(
-    '/admin/ventas/{id}',
-    [AdminController::class, 'detalleVenta']
-)->name('admin.ventas.show');
+    // Gestión Productos Admin
+    Route::get('/admin/productos', [ProductoController::class, 'index'])->name('productos.index');
+    Route::get('/admin/productos/create', [ProductoController::class, 'create']);
+    Route::post('/admin/productos', [ProductoController::class, 'store'])->name('productos.store');
+    Route::get('/admin/productos/{id}/edit', [ProductoController::class, 'edit'])->name('productos.edit');
+    Route::put('/admin/productos/{id}', [ProductoController::class, 'update'])->name('productos.update');
+    Route::delete('/admin/productos/{id}', [ProductoController::class, 'destroy'])->name('productos.destroy');
+    Route::put('/admin/productos/{id}/toggle', [ProductoController::class, 'toggleActivo'])->name('productos.toggle');
+});

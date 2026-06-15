@@ -127,21 +127,36 @@
                                     <div class="mt-auto">
                                         <h6 class="fw-bold text-dark mb-3 fs-5">${{ number_format($comic->precio, 2) }}</h6>
                                         
-                                        @auth
-                                            <form action="{{ route('carrito.agregar') }}" method="POST" class="d-block m-0 p-0">
-                                                @csrf
-                                                <input type="hidden" name="producto_id" value="{{ $comic->id }}">
-                                                
-                                                <div class="input-group input-group-sm mb-2">
-                                                    <span class="input-group-text bg-light text-black ">Cant.</span>
-                                                    <input type="number" name="cantidad" class="form-control text-center" 
-                                                           value="1" min="1" max="10" required>
-                                                </div>
-                                                
-                                                <button type="submit" class="btn btn-dark btn-sm w-100 rounded-0 py-2 text-uppercase font-monospace">
-                                               Agregar al carrito
-                                              </button>
-</form> @endauth
+                                       
+                                            @auth
+                             {{-- AQUI VA EL MENSAJE DE STOCK --}}
+                             <div class="mb-2 text-center">
+                                 @if($comic->stock <= 0)
+                                     <span class="text-danger fw-bold small">Sin stock disponible</span>
+                                 @elseif($comic->stock <= 3)
+                                     <span class="text-warning fw-bold small">
+                                         ¡{{ $comic->stock == 1 ? 'Última unidad disponible!' : 'Últimas ' . $comic->stock . ' unidades disponibles!' }}
+                                     </span>
+                                 @endif
+                             </div>
+
+                             <form action="{{ route('carrito.agregar') }}" method="POST" class="d-block m-0 p-0">
+                                 @csrf
+                                 <input type="hidden" name="producto_id" value="{{ $comic->id }}">
+        
+                                 <div class="input-group input-group-sm mb-2">
+                                     <span class="input-group-text bg-light text-black">Cant.</span>
+                                     <input type="number" name="cantidad" class="form-control text-center" 
+                                            value="1" min="1" max="{{ $comic->stock > 0 ? $comic->stock : 1 }}" 
+                                            required {{ $comic->stock <= 0 ? 'disabled' : '' }}>
+                                 </div>
+        
+                                 <button type="submit" class="btn btn-dark btn-sm w-100 rounded-0 py-2 text-uppercase font-monospace" 
+                                         {{ $comic->stock <= 0 ? 'disabled' : '' }}>
+                                     {{ $comic->stock <= 0 ? 'Sin stock' : 'Agregar al carrito' }}
+                                 </button>
+                          </form> 
+                           @endauth
 
                                         @guest
                                             <div class="input-group input-group-sm mb-2">

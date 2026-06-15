@@ -42,8 +42,13 @@ class CarritoController extends Controller
 
     $producto = Producto::findOrFail($request->producto_id);
 
-    $carrito = $this->obtenerCarrito();
+    // Bloqueo total si el stock es 0 o menos
+    if ($producto->stock <= 0) {
+        return back()->with('error', 'Lo sentimos, este producto ya no tiene stock.');
+    }
 
+    $carrito = $this->obtenerCarrito();
+    
     // Buscar si el producto ya existe en el carrito
     $item = $carrito->detalles()
                      ->where('producto_id', $producto->id)
@@ -151,6 +156,20 @@ public function confirmar()
 
         foreach ($items as $item) {
             $producto = $item->producto;
+
+            // --- ESTO ES LO NUEVO QUE TIENES QUE AGREGAR ---
+            // 1. Validamos que el producto exista y esté activo
+            if (!$producto || !$producto->activo) {
+                return back()->with('error', 'El producto ' . ($producto->nombre ?? '') . ' ya no está disponible.');
+            }
+
+            // 2. Validamos stock antes de restar
+            if ($producto->stock < $item->cantidad) {
+                return back()->with('error', 'No hay suficiente stock de: ' . $producto->nombre);
+            }
+            // ------------------------------------------------
+
+            // Recién aquí, si pasó las validaciones, restamos
             $producto->stock -= $item->cantidad;
             $producto->save();
         }
