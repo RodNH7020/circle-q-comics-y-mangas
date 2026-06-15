@@ -2,95 +2,153 @@
 
 @section('content')
 
-<div class="container mt-4">
+<div class="container my-5">
 
-    <h1>Listado de Productos</h1>
+```
+<div class="card shadow-lg border-0"
+     style="background-color: rgba(0,0,0,0.92); border-radius:15px;">
 
-    <table class="table table-bordered">
+    <div class="card-header bg-transparent border-0 p-4">
 
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Editorial</th>
-                <th>Tipo</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Activo</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
+        <div class="d-flex justify-content-between align-items-center">
 
-        <tbody>
+            <h2 class="fw-bold mb-0"
+                style="color:#ff5733;">
+                Gestión de Productos
+            </h2>
 
-        @foreach($productos as $producto)
+            <a href="/admin/productos/create"
+               class="btn"
+               style="background-color:#ff5733;color:white;">
+                Nuevo Producto
+            </a>
 
-            <tr>
-                <td>{{ $producto->id }}</td>
-                <td>{{ $producto->nombre }}</td>
-                <td>{{ $producto->editorial }}</td>
-                <td>{{ $producto->tipo }}</td>
-                <td>${{ $producto->precio }}</td>
-                <td>{{ $producto->stock }}</td>
+        </div>
 
-                <td>
-                    {{ $producto->activo ? 'Sí' : 'No' }}
-                </td>
+    </div>
 
-                 <td>
+    <div class="card-body text-white">
 
-    <td>
+        <div class="table-responsive">
 
-    <a href="{{ route('productos.edit', $producto->id) }}"
-       class="btn btn-warning btn-sm">
-        Editar
-    </a>
+            <table class="table table-dark table-hover align-middle">
 
-    <form action="{{ route('productos.toggle', $producto->id) }}"
-          method="POST"
-          style="display:inline;">
+                <thead>
 
-        @csrf
-        @method('PUT')
+                    <tr>
+                        <th>ID</th>
+                        <th>Portada</th>
+                        <th>Nombre</th>
+                        <th>Editorial</th>
+                        <th>Tipo</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
 
-        @if($producto->activo)
+                </thead>
 
-            <button
-                type="submit"
-                class="btn btn-danger btn-sm">
-                Desactivar
-            </button>
+                <tbody>
 
-        @else
+                @foreach($productos as $producto)
 
-            <button
-                type="submit"
-                class="btn btn-success btn-sm">
-                Activar
-            </button>
+                    <tr>
 
-        @endif
+                        <td>{{ $producto->id }}</td>
 
-    </form>
+                        <td>
 
-</td>
-            </tr>
+                            @if($producto->url_imagen)
 
-        @endforeach
+                                <img src="{{ $producto->url_imagen }}"
+                                     alt="{{ $producto->nombre }}"
+                                     class="rounded shadow"
+                                     style="height:80px;">
 
-        </tbody>
+                            @endif
 
-    </table>
+                        </td>
 
-    <a href="/admin/productos/create"
-   class="btn btn-success mb-3">
-    Nuevo Producto
-    </a>
+                        <td>{{ $producto->nombre }}</td>
 
-</td>
+                        <td>{{ $producto->editorial }}</td>
+
+                        <td>{{ $producto->tipo }}</td>
+
+                        <td>
+                            ${{ number_format($producto->precio,2,',','.') }}
+                        </td>
+
+                        <td>{{ $producto->stock }}</td>
+
+                        <td>
+
+                            @if($producto->activo)
+
+                                <span class="badge bg-success">
+                                    Activo
+                                </span>
+
+                            @else
+
+                                <span class="badge bg-danger">
+                                    Inactivo
+                                </span>
+
+                            @endif
+
+                        </td>
+
+                        <td>
+
+                            <a href="{{ route('productos.edit', $producto->id) }}"
+                               class="btn btn-warning btn-sm">
+                                Editar
+                            </a>
+
+                            <form action="{{ route('productos.toggle', $producto->id) }}"
+                                  method="POST"
+                                  class="d-inline">
+
+                                @csrf
+                                @method('PUT')
+
+                                @if($producto->activo)
+
+                                    <button type="submit"
+                                            class="btn btn-danger btn-sm">
+                                        Desactivar
+                                    </button>
+
+                                @else
+
+                                    <button type="submit"
+                                            class="btn btn-success btn-sm">
+                                        Activar
+                                    </button>
+
+                                @endif
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                @endforeach
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </div>
+```
 
-
+</div>
 
 @endsection

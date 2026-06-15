@@ -162,3 +162,12 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
         
 });
 
+Route::get(
+    '/admin/ventas',
+    [AdminController::class, 'ventas']
+)->name('admin.ventas');
+
+Route::get(
+    '/admin/ventas/{id}',
+    [AdminController::class, 'detalleVenta']
+)->name('admin.ventas.show');
