@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="col-md-6 col-lg-3">
-                    <a href="/admin/contactos" class="text-decoration-none">
+                    <a href="{{ route('admin.consultas') }}" class="text-decoration-none">
                         <div class="card h-100 border-0 admin-card text-center">
                             <div class="card-body d-flex flex-column justify-content-center py-4">
                                 <h5 class="card-title text-white fw-semibold mb-0">Consultas</h5>

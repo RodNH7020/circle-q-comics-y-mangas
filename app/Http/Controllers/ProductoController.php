@@ -31,7 +31,20 @@ class ProductoController extends Controller
             'precio' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'url_imagen' => 'nullable|max:255',
-        ]);
+        ], [
+            'nombre.required' => 'El nombre del producto es obligatorio.',
+            'descripcion.required' => 'La descripción es obligatoria.',
+            'editorial.required' => 'La editorial es obligatoria.',
+            'tipo.required' => 'El tipo de producto es obligatorio.',
+            'precio.required' => 'El precio es obligatorio.',
+            'precio.numeric' => 'El precio debe ser un número.',
+            'precio.min' => 'El precio no puede ser negativo.',
+            'stock.required' => 'El stock es obligatorio.',
+            'stock.integer' => 'El stock debe ser un número entero.',
+            'stock.min' => 'El stock no puede ser negativo.',
+        ]
+        
+        );
 
         Producto::create([
             'nombre' => $request->nombre,
@@ -69,7 +82,19 @@ class ProductoController extends Controller
             'precio' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'url_imagen' => 'nullable|max:255',
-        ]);
+        ], [
+            'nombre.required' => 'El nombre del producto es obligatorio.',
+            'descripcion.required' => 'La descripción es obligatoria.',
+            'editorial.required' => 'La editorial es obligatoria.',
+            'tipo.required' => 'El tipo de producto es obligatorio.',
+            'precio.required' => 'El precio es obligatorio.',
+            'precio.numeric' => 'El precio debe ser un número.',
+            'precio.min' => 'El precio no puede ser negativo.',
+            'stock.required' => 'El stock es obligatorio.',
+            'stock.integer' => 'El stock debe ser un número entero.',
+            'stock.min' => 'El stock no puede ser negativo.',
+        ]
+        );
 
         $producto = Producto::findOrFail($id);
 

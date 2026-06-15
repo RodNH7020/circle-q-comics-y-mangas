@@ -54,6 +54,7 @@
                     <label class="form-label">Precio</label>
                     <input type="number"
                            step="0.01"
+                           min="0"
                            name="precio"
                            class="form-control bg-dark text-white border-secondary">
                 </div>
@@ -61,6 +62,7 @@
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Stock</label>
                     <input type="number"
+                           min="0"
                            name="stock"
                            class="form-control bg-dark text-white border-secondary">
                 </div>

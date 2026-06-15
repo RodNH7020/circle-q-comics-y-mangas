@@ -66,4 +66,12 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
     Route::put('/admin/productos/{id}', [ProductoController::class, 'update'])->name('productos.update');
     Route::delete('/admin/productos/{id}', [ProductoController::class, 'destroy'])->name('productos.destroy');
     Route::put('/admin/productos/{id}/toggle', [ProductoController::class, 'toggleActivo'])->name('productos.toggle');
+
+    // Gestión Consultas Admin
+    Route::get('/admin/consultas',[AdminController::class, 'consultas'])->name('admin.consultas');
+    Route::put('/admin/consultas/{id}/resolver',[AdminController::class, 'resolverConsulta'])->name('admin.consultas.resolver');
+   ;
+
+   //Gestión usuarios admin
+  Route::put('/admin/usuarios/{id}/rol',[AdminController::class, 'cambiarRol'])->name('admin.usuarios.rol');
 });

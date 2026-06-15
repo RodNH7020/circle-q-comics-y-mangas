@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Consulta extends Model
 {
-    //
+    protected $fillable = [
+        'nombre',
+        'email',
+        'mensaje',
+        'estado'
+    ];
 }

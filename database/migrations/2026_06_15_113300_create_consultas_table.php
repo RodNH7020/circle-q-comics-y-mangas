@@ -12,7 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('consultas', function (Blueprint $table) {
+
             $table->id();
+
+            $table->string('nombre');
+
+            $table->string('email');
+
+            $table->text('mensaje');
+
+            $table->enum('estado', [
+                'pendiente',
+                'resuelta'
+            ])->default('pendiente');
+
             $table->timestamps();
         });
     }
