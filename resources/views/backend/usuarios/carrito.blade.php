@@ -23,9 +23,9 @@
         @if($items->isEmpty())
             <div class="text-center py-5">
                 <h4 class="text-white mb-4">Tu carrito está vacío actualmente.</h4>
-                <a href="{{ route('catalogo') }}" class="btn btn-danger btn-lg text-uppercase font-monospace rounded-0">
-                    Ir al catálogo
-                </a>
+                <a href="{{ route('catalogo') }}" class="btn btn-danger px-4">
+        <i class="bi bi-arrow-left"></i> Ir al catálogo
+    </a>
             </div>
         @else
             <div class="table-responsive mb-4">

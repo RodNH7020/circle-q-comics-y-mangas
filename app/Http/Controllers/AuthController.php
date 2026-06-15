@@ -136,5 +136,14 @@ public function actualizar(Request $request)
         return view('backend.usuarios.factura', compact('compra'));
     }
 
+    public function misCompras() 
+    {
+        $compras = \App\Models\VentaCabecera::where('user_id', auth()->id())
+                                ->where('estado', 'confirmado')
+                                ->orderBy('fecha_venta', 'desc')
+                                ->get();
+                                
+        return view('backend.usuarios.mis-compras', compact('compras'));
+    }
+} 
 
-}
