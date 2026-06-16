@@ -69,8 +69,9 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
     Route::get('/admin/usuarios', [AdminController::class, 'usuarios'])->name('admin.usuarios');
     
     // Ventas Admin
-    Route::get('/admin/ventas', [AdminController::class, 'ventas'])->name('admin.ventas');
-    Route::get('/admin/ventas/{id}', [AdminController::class, 'detalleVenta'])->name('admin.ventas.show');
+   // Ventas Admin
+Route::get('/admin/ventas', [AdminController::class, 'ventas'])->name('admin.ventas');
+Route::get('/admin/ventas/{id}', [AdminController::class, 'detalleVenta'])->name('admin.ventas.show');
 
     // Gestión Productos Admin
     Route::get('/admin/productos', [ProductoController::class, 'index'])->name('productos.index');

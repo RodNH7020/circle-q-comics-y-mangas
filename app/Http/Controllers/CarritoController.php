@@ -161,41 +161,34 @@ public function confirmar()
             return back()->with('error', 'Tu carrito está vacío');
         }
 
-        $items = $carrito->detalles()->with('producto')->get();
+        // 1. CREAR LA VENTA REAL (CABECERA)
+        // Esto crea un registro nuevo con un ID único para esta compra
+        $ventaReal = \App\Models\VentaCabecera::create([
+            'user_id'     => auth()->id(),
+            'estado'      => 'confirmado',
+            'total'       => $carrito->total,
+            'fecha_venta' => now(),
+        ]);
 
-        foreach ($items as $item) {
+        // 2. MIGRAR LOS DETALLES DEL CARRITO A LA VENTA REAL
+        foreach ($carrito->detalles as $item) {
+            // Actualizamos el venta_id del detalle para que apunte a la venta real
+            $item->update(['venta_id' => $ventaReal->id]);
+            
+            // 3. RESTAR STOCK (lógica que ya tenías)
             $producto = $item->producto;
-
-            // --- ESTO ES LO NUEVO QUE TIENES QUE AGREGAR ---
-            // 1. Validamos que el producto exista y esté activo
-            if (!$producto || !$producto->activo) {
-                return back()->with('error', 'El producto ' . ($producto->nombre ?? '') . ' ya no está disponible.');
-            }
-
-            // 2. Validamos stock antes de restar
-            if ($producto->stock < $item->cantidad) {
-                return back()->with('error', 'No hay suficiente stock de: ' . $producto->nombre);
-            }
-            // ------------------------------------------------
-
-            // Recién aquí, si pasó las validaciones, restamos
             $producto->stock -= $item->cantidad;
             $producto->save();
         }
 
-        $total = $carrito->total;
+        // 4. ELIMINAR EL CARRITO TEMPORAL O RESETEARLO
+        // Al hacer esto, los detalles YA NO están en el carrito porque ahora pertenecen a la VentaReal
+        $carrito->detalles()->delete();
+        $carrito->update(['total' => 0]);
 
-        $carrito->update([
-            'estado'      => 'confirmado',
-            'fecha_venta' => now(),
-        ]);
-
-        return redirect()->route('compra.confirmada')
-                         ->with('items', $items)
-                         ->with('total', $total);
+        return redirect()->route('compra.confirmada');
     });
 }
-
 public function vaciar()
 {
     $carrito = $this->obtenerCarrito();

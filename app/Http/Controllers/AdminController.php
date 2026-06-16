@@ -18,37 +18,29 @@ class AdminController extends Controller
         return view('backend.admin.usuarios.index', compact('usuarios'));
     }
 
-    public function ventas(){
-    $ventas = VentaCabecera::with([
-        'usuario',
-        'detalles'
-    ])
-    ->where('estado', 'confirmado')
-    ->orderBy('fecha_venta', 'desc')
-    ->get();
+   public function ventas()
+    {
+        // Corregimos la consulta para que esté bien estructurada
+        $ventas = VentaCabecera::with(['usuario', 'detalles.producto'])
+            ->where('estado', 'confirmado')
+            ->orderBy('fecha_venta', 'desc')
+            ->get();
 
-    $totalVentas = $ventas->count();
+        $totalVentas = $ventas->count();
+        $recaudacionTotal = $ventas->sum('total');
 
-    $recaudacionTotal = $ventas->sum('total');
-
-    return view(
-        'backend.admin.ventas.index',
-        compact(
-            'ventas',
-            'totalVentas',
-            'recaudacionTotal'
-        )
-    );
-}
-
-    public function detalleVenta($id){
-    $venta = VentaCabecera::with([
-        'usuario',
-        'detalles.producto'
-    ])->findOrFail($id);
-
-    return view('backend.admin.ventas.show', compact('venta'));
+        return view('backend.admin.ventas.index', compact('ventas', 'totalVentas', 'recaudacionTotal'));
     }
+
+    public function detalleVenta($id)
+    {
+        // Este método busca una venta única por su ID
+        $venta = \App\Models\VentaCabecera::with(['usuario', 'detalles.producto'])
+                    ->findOrFail($id);
+
+        return view('backend.admin.ventas.show', compact('venta'));
+    }
+
     
     
     public function consultas(){
