@@ -108,31 +108,40 @@ if ($producto->stock < $cantidadTotal) {
     );
 }
 public function actualizar(Request $request, $id)
-    {
-        // 1. Validamos que nos manden un número válido mayor a 0
-        $request->validate([
-            'cantidad' => 'required|integer|min:1',
-        ]);
+{
+    // 1. Validamos que nos manden un número válido mayor a 0
+    $request->validate([
+        'cantidad' => 'required|integer|min:1',
+    ]);
 
-        $carrito = $this->obtenerCarrito();
-        
-        // 2. Buscamos el producto en el carrito
-        $item = $carrito->detalles()->where('id', $id)->first();
+    $carrito = $this->obtenerCarrito();
+    
+    // 2. Buscamos el producto en el carrito (y traemos los datos del producto original)
+    $item = $carrito->detalles()->with('producto')->where('id', $id)->first();
 
-        if ($item) {
-            // 3. Actualizamos la cantidad y recalculamos el subtotal de ese producto
-            $item->cantidad = $request->cantidad;
-            $item->subtotal = $item->precio_unitario * $request->cantidad;
-            $item->save();
+    if ($item) {
+        $producto = $item->producto;
 
-            // 4. Recalculamos el total general del carrito
-            $this->recalcularTotal($carrito);
-
-            return back()->with('success', 'Cantidad actualizada correctamente');
+        // --- VALIDACIÓN DE STOCK (NUEVO) ---
+        // Verificamos si la nueva cantidad que pide supera el stock real
+        if ($request->cantidad > $producto->stock) {
+            return back()->with('error', 'Solo quedan ' . $producto->stock . ' unidades disponibles de este producto.');
         }
 
-        return back()->with('error', 'No se pudo actualizar el producto');
+
+        // 3. Actualizamos la cantidad y recalculamos el subtotal de ese producto
+        $item->cantidad = $request->cantidad;
+        $item->subtotal = $item->precio_unitario * $request->cantidad;
+        $item->save();
+
+        // 4. Recalculamos el total general del carrito
+        $this->recalcularTotal($carrito);
+
+        return back()->with('success', 'Cantidad actualizada correctamente');
     }
+
+    return back()->with('error', 'No se pudo actualizar el producto');
+}
 
 
     public function eliminar($id)
@@ -186,4 +195,19 @@ public function confirmar()
                          ->with('total', $total);
     });
 }
+
+public function vaciar()
+{
+    $carrito = $this->obtenerCarrito();
+    
+    // Borramos todos los productos
+    $carrito->detalles()->delete(); 
+    
+    // Recalculamos el total
+    $this->recalcularTotal($carrito); 
+    
+    // Usamos EXACTAMENTE el mismo método que usas para eliminar un solo producto
+    return back()->with('success', 'El carrito ha sido vaciado por completo.');
+}
+
 }

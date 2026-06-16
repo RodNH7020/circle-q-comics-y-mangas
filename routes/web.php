@@ -9,7 +9,20 @@ use App\Http\Controllers\ProductoController;
 
 // --- RUTAS PÚBLICAS ---
 Route::get('/', function () { return view('welcome'); });
-Route::get('/home', function () { return view('home'); })->name('home');
+Route::get('/home', function () { 
+    // 1. Buscamos todas las editoriales
+    $editoriales = \App\Models\Producto::select('editorial')
+                        ->whereNotNull('editorial')
+                        ->where('editorial', '!=', '')
+                        ->distinct()
+                        ->pluck('editorial');
+
+    // 2. Buscamos TODOS los productos para que la vista pueda filtrarlos
+    $productos = \App\Models\Producto::all();
+
+    // 3. Le enviamos AMBAS variables a la vista
+    return view('home', compact('editoriales', 'productos')); 
+})->name('home');
 Route::get('/quienes-somos', function () { return view('quienes-somos'); });
 Route::get('/comercializacion', function () { return view('comercializacion'); });
 Route::get('/terminos-y-usos', function () { return view('terminos-y-usos'); });
@@ -40,6 +53,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
         if (!session('total')) return redirect()->route('home');
         return view('backend.usuarios.compra-confirmada'); 
     })->name('compra.confirmada');
+    Route::delete('/carrito/vaciar', [CarritoController::class, 'vaciar'])->name('carrito.vaciar');
 
     // Perfil del usuario
     Route::get('/perfil', [AuthController::class, 'perfil'])->name('perfil');
@@ -74,4 +88,5 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
 
    //Gestión usuarios admin
   Route::put('/admin/usuarios/{id}/rol',[AdminController::class, 'cambiarRol'])->name('admin.usuarios.rol');
+
 });

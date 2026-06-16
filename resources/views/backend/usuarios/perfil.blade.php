@@ -30,7 +30,7 @@
         <div class="mt-4 d-flex flex-wrap gap-2 justify-content-center">
            
             <a href="{{ route('perfil.editar') }}" class="btn btn-danger px-4">Editar datos</a>
-            <a href="{{ route('perfil.mis-compras') }}" class="btn btn-danger px-4">Ver mis compras</a>
+            <a href="{{ route('perfil.mis-compras') }}" class="btn btn-danger">Mis Compras</a>
         </div>
     </div>
 </div>

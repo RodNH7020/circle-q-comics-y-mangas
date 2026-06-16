@@ -182,80 +182,84 @@ footer {
         <li class="nav-item"><a class="nav-link text-white" href="{{ route('login') }}">Iniciar Sesión</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="{{ route('register') }}">Registrarse</a></li>
       @endguest
+@auth
 
-      @auth
-
-    <li class="nav-item dropdown">
-    <a class="nav-link text-white dropdown-toggle fw-bold" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="bi bi-person-circle"></i> Hola, {{ auth()->user()->nombre }}
-    </a>
-    
-    <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" aria-labelledby="perfilDropdown">
-        <li>
-            <a class="dropdown-item py-2" href="{{ route('perfil') }}">
-                <i class="bi bi-person me-2"></i> Mi Perfil
-            </a>
-        </li>
-        <li>
-            <a class="dropdown-item py-2" href="{{ route('perfil.mis-compras') }}">
-                <i class="bi bi-bag-check me-2"></i> Mis Compras
-            </a>
-        </li>
-        <li>
-            <a class="dropdown-item py-2" href="{{ route('cliente.carrito') }}">
-                <i class="bi bi-cart3 me-2"></i> Mi Carrito
-            </a>
-        </li>
-        
-        <li><hr class="dropdown-divider"></li>
-        
-        <li>
-            <form action="{{ route('logout') }}" method="POST" class="m-0">
-                @csrf
-                <button type="submit" class="dropdown-item text-danger py-2 fw-bold">
-                    <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
-                </button>
-            </form>
-        </li>
-    </ul>
-</li>
-
-    @if(auth()->user()->role == 'admin')
-
+      @if(auth()->user()->role == 'admin')
         <li class="nav-item">
-            <a href="{{ route('admin.dashboard') }}"
-               class="nav-link text-white">
-                Panel Admin
+            <a href="{{ route('admin.dashboard') }}" class="nav-link text-white">
+                <i class="bi bi-speedometer2"></i> Panel Admin
             </a>
         </li>
+      @endif
 
-    @else
+      <li class="nav-item dropdown">
+        <a class="nav-link text-white dropdown-toggle fw-bold" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle"></i> Hola, {{ auth()->user()->nombre }}
+        </a>
+        
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" aria-labelledby="perfilDropdown">
+            
+            @if(auth()->user()->role == 'admin')
+                <li>
+                    <a class="dropdown-item py-2" href="{{ route('productos.index') }}">
+                        <i class="bi bi-box-seam me-2"></i> Productos
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item py-2" href="{{ route('admin.usuarios') }}">
+                        <i class="bi bi-people me-2"></i> Usuarios
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item py-2" href="{{ route('admin.ventas') }}">
+                        <i class="bi bi-receipt me-2"></i> Ventas
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item py-2" href="{{ route('admin.consultas') }}">
+                        <i class="bi bi-envelope me-2"></i> Consultas
+                    </a>
+                </li>
+            @else
+                <li>
+                    <a class="dropdown-item py-2" href="{{ route('perfil') }}">
+                        <i class="bi bi-person me-2"></i> Mi Perfil
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item py-2" href="{{ route('perfil.mis-compras') }}">
+                        <i class="bi bi-bag-check me-2"></i> Mis Compras
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item py-2" href="{{ route('cliente.carrito') }}">
+                        <i class="bi bi-cart3 me-2"></i> Mi Carrito
+                    </a>
+                </li>
+            @endif
+            
+            <li><hr class="dropdown-divider"></li>
+            
+            <li>
+                <form action="{{ route('logout') }}" method="POST" class="m-0">
+                    @csrf
+                    <button type="submit" class="dropdown-item text-danger py-2 fw-bold">
+                        <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
+                    </button>
+                </form>
+            </li>
+        </ul>
+      </li>
 
-       <li class="nav-item">
-    <a href="{{ route('cliente.carrito') }}" class="nav-link text-white">
-        <i class="bi bi-cart3 me-2"></i> 
-    </a>
-       </li>
+      @if(auth()->user()->role != 'admin')
+        <li class="nav-item">
+            <a href="{{ route('cliente.carrito') }}" class="nav-link text-white">
+                <i class="bi bi-cart3 fs-5"></i> 
+            </a>
+        </li>
+      @endif
 
-    @endif
-
-    <li class="nav-item">
-        <form action="{{ route('logout') }}"
-              method="POST"
-              class="m-0">
-
-            @csrf
-
-            <button
-                type="submit"
-                class="nav-link text-white border-0 bg-transparent">
-                Cerrar Sesión
-            </button>
-
-        </form>
-    </li>
-
-@endauth
+      @endauth
 
     </ul>
   </div>
