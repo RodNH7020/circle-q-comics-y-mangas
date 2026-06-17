@@ -47,6 +47,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/perfil/actualizar', [AuthController::class, 'actualizar'])->name('perfil.actualizar');
     Route::get('/perfil/compra/{id}', [AuthController::class, 'verFactura'])->name('perfil.factura');
     Route::get('/perfil/mis-compras', [AuthController::class, 'misCompras'])->name('perfil.mis-compras');
+
+    Route::get('/perfil/consultas',[AuthController::class, 'misConsultas'])->middleware('auth')->name('perfil.consultas');
 });
 
 // --- RUTAS DE ADMINISTRADOR ---

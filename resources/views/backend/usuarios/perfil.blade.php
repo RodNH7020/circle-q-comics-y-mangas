@@ -28,10 +28,23 @@
         </div>
 
         <div class="mt-4 d-flex flex-wrap gap-2 justify-content-center">
-           
-            <a href="{{ route('perfil.editar') }}" class="btn btn-danger px-4">Editar datos</a>
-            <a href="{{ route('perfil.mis-compras') }}" class="btn btn-danger px-4">Ver mis compras</a>
-        </div>
+
+    <a href="{{ route('perfil.editar') }}"
+       class="btn btn-danger px-4">
+        Editar datos
+    </a>
+
+    <a href="{{ route('perfil.mis-compras') }}"
+       class="btn btn-danger px-4">
+        Ver mis compras
+    </a>
+
+    <a href="{{ route('perfil.consultas') }}"
+       class="btn btn-danger px-4">
+        Mis consultas
+    </a>
+
+</div>
     </div>
 </div>
 

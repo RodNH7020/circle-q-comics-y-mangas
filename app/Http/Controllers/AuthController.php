@@ -145,5 +145,18 @@ public function actualizar(Request $request)
                                 
         return view('backend.usuarios.mis-compras', compact('compras'));
     }
+
+    public function misConsultas()
+{
+    $consultas = auth()->user()
+                       ->consultas()
+                       ->latest()
+                       ->get();
+
+    return view(
+        'backend.usuarios.consultas',
+        compact('consultas')
+    );
+}
 } 
 

@@ -39,4 +39,8 @@ class User extends Authenticatable
     'role', 
     'remember_token' 
 ];
+    public function consultas()
+{
+    return $this->hasMany(\App\Models\Consulta::class);
+}
 }
