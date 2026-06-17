@@ -108,31 +108,40 @@ if ($producto->stock < $cantidadTotal) {
     );
 }
 public function actualizar(Request $request, $id)
-    {
-        // 1. Validamos que nos manden un número válido mayor a 0
-        $request->validate([
-            'cantidad' => 'required|integer|min:1',
-        ]);
+{
+    // 1. Validamos que nos manden un número válido mayor a 0
+    $request->validate([
+        'cantidad' => 'required|integer|min:1',
+    ]);
 
-        $carrito = $this->obtenerCarrito();
-        
-        // 2. Buscamos el producto en el carrito
-        $item = $carrito->detalles()->where('id', $id)->first();
+    $carrito = $this->obtenerCarrito();
+    
+    // 2. Buscamos el producto en el carrito (y traemos los datos del producto original)
+    $item = $carrito->detalles()->with('producto')->where('id', $id)->first();
 
-        if ($item) {
-            // 3. Actualizamos la cantidad y recalculamos el subtotal de ese producto
-            $item->cantidad = $request->cantidad;
-            $item->subtotal = $item->precio_unitario * $request->cantidad;
-            $item->save();
+    if ($item) {
+        $producto = $item->producto;
 
-            // 4. Recalculamos el total general del carrito
-            $this->recalcularTotal($carrito);
-
-            return back()->with('success', 'Cantidad actualizada correctamente');
+        // --- VALIDACIÓN DE STOCK (NUEVO) ---
+        // Verificamos si la nueva cantidad que pide supera el stock real
+        if ($request->cantidad > $producto->stock) {
+            return back()->with('error', 'Solo quedan ' . $producto->stock . ' unidades disponibles de este producto.');
         }
 
-        return back()->with('error', 'No se pudo actualizar el producto');
+
+        // 3. Actualizamos la cantidad y recalculamos el subtotal de ese producto
+        $item->cantidad = $request->cantidad;
+        $item->subtotal = $item->precio_unitario * $request->cantidad;
+        $item->save();
+
+        // 4. Recalculamos el total general del carrito
+        $this->recalcularTotal($carrito);
+
+        return back()->with('success', 'Cantidad actualizada correctamente');
     }
+
+    return back()->with('error', 'No se pudo actualizar el producto');
+}
 
 
     public function eliminar($id)
@@ -152,38 +161,46 @@ public function confirmar()
             return back()->with('error', 'Tu carrito está vacío');
         }
 
-        $items = $carrito->detalles()->with('producto')->get();
+        // 1. CREAR LA VENTA REAL (CABECERA)
+        // Esto crea un registro nuevo con un ID único para esta compra
+        $ventaReal = \App\Models\VentaCabecera::create([
+            'user_id'     => auth()->id(),
+            'estado'      => 'confirmado',
+            'total'       => $carrito->total,
+            'fecha_venta' => now(),
+        ]);
 
-        foreach ($items as $item) {
+        // 2. MIGRAR LOS DETALLES DEL CARRITO A LA VENTA REAL
+        foreach ($carrito->detalles as $item) {
+            // Actualizamos el venta_id del detalle para que apunte a la venta real
+            $item->update(['venta_id' => $ventaReal->id]);
+            
+            // 3. RESTAR STOCK (lógica que ya tenías)
             $producto = $item->producto;
-
-            // --- ESTO ES LO NUEVO QUE TIENES QUE AGREGAR ---
-            // 1. Validamos que el producto exista y esté activo
-            if (!$producto || !$producto->activo) {
-                return back()->with('error', 'El producto ' . ($producto->nombre ?? '') . ' ya no está disponible.');
-            }
-
-            // 2. Validamos stock antes de restar
-            if ($producto->stock < $item->cantidad) {
-                return back()->with('error', 'No hay suficiente stock de: ' . $producto->nombre);
-            }
-            // ------------------------------------------------
-
-            // Recién aquí, si pasó las validaciones, restamos
             $producto->stock -= $item->cantidad;
             $producto->save();
         }
 
-        $total = $carrito->total;
+        // 4. ELIMINAR EL CARRITO TEMPORAL O RESETEARLO
+        // Al hacer esto, los detalles YA NO están en el carrito porque ahora pertenecen a la VentaReal
+        $carrito->detalles()->delete();
+        $carrito->update(['total' => 0]);
 
-        $carrito->update([
-            'estado'      => 'confirmado',
-            'fecha_venta' => now(),
-        ]);
-
-        return redirect()->route('compra.confirmada')
-                         ->with('items', $items)
-                         ->with('total', $total);
+        return redirect()->route('compra.confirmada');
     });
 }
+public function vaciar()
+{
+    $carrito = $this->obtenerCarrito();
+    
+    // Borramos todos los productos
+    $carrito->detalles()->delete(); 
+    
+    // Recalculamos el total
+    $this->recalcularTotal($carrito); 
+    
+    // Usamos EXACTAMENTE el mismo método que usas para eliminar un solo producto
+    return back()->with('success', 'El carrito ha sido vaciado por completo.');
+}
+
 }

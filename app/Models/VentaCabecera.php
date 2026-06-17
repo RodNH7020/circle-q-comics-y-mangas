@@ -27,7 +27,9 @@ class VentaCabecera extends Model
     }
 
     public function detalles()
-    {
-        return $this->hasMany(VentaDetalle::class, 'venta_id');
-    }
+{
+    // Forzamos a Laravel a vincular 'venta_id' de la tabla detalle con el 'id' de la cabecera
+    return $this->hasMany(VentaDetalle::class, 'venta_id', 'id');
+}
+
 }

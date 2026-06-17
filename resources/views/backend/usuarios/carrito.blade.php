@@ -87,13 +87,23 @@
                         <h2 class="m-0 fw-bold text-success d-inline-block align-middle">${{ number_format($carrito->total, 2, ',', '.') }}</h2>
                     </div>
 
-                    <div class="col-12 col-md-6 text-center text-md-end">
+                    <div class="col-12 col-md-6 d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center gap-2 mt-3 mt-md-0">
+                        
+                        <form action="{{ route('carrito.vaciar') }}" method="POST" class="m-0" onsubmit="return confirm('¿Estás seguro de que querés eliminar todos los productos de tu carrito?')">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger btn-lg text-uppercase font-monospace rounded-0 fw-bold px-4">
+        Vaciar carrito
+    </button>
+</form>
+
                         <form action="{{ route('carrito.confirmar') }}" method="POST" class="m-0">
                             @csrf
                             <button type="submit" class="btn btn-success btn-lg text-uppercase font-monospace rounded-0 fw-bold px-4 px-md-5">
                                 Confirmar compra
                             </button>
                         </form>
+
                     </div>
 
                 </div>

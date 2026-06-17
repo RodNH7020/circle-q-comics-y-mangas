@@ -36,7 +36,6 @@
 
                     <tr>
                         <th>ID</th>
-                        <th>Portada</th>
                         <th>Nombre</th>
                         <th>Editorial</th>
                         <th>Tipo</th>
@@ -56,18 +55,7 @@
 
                         <td>{{ $producto->id }}</td>
 
-                        <td>
-
-                            @if($producto->url_imagen)
-
-                                <img src="{{ $producto->url_imagen }}"
-                                     alt="{{ $producto->nombre }}"
-                                     class="rounded shadow"
-                                     style="height:80px;">
-
-                            @endif
-
-                        </td>
+                      
 
                         <td>{{ $producto->nombre }}</td>
 
