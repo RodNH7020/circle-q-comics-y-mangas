@@ -12,11 +12,29 @@
                 Editar Producto
             </h2>
         </div>
+            @if ($errors->any())
+
+<div class="alert alert-danger">
+
+    <ul class="mb-0">
+
+        @foreach ($errors->all() as $error)
+
+            <li>{{ $error }}</li>
+
+        @endforeach
+
+    </ul>
+
+</div>
+
+@endif
 
         <div class="card-body text-white p-4">
 
-            <form action="{{ route('productos.update', $producto->id) }}"
-                  method="POST">
+           <form action="/admin/productos"
+                    method="POST"
+                    enctype="multipart/form-data">
 
                 @csrf
                 @method('PUT')
@@ -46,10 +64,21 @@
 
                 <div class="mb-3">
                     <label class="form-label">Tipo</label>
-                    <input type="text"
-                           name="tipo"
-                           value="{{ $producto->tipo }}"
-                           class="form-control bg-dark text-white border-secondary">
+                    <select name="tipo"
+                            class="form-select bg-dark text-white border-secondary"
+                            required>
+
+                        <option value="Comic"
+                            {{ $producto->tipo == 'Comic' ? 'selected' : '' }}>
+                            Comic
+                        </option>
+
+                        <option value="Manga"
+                            {{ $producto->tipo == 'Manga' ? 'selected' : '' }}>
+                            Manga
+                        </option>
+
+                    </select>
                 </div>
 
                 <div class="row">
@@ -57,10 +86,12 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Precio</label>
                         <input type="number"
-                               step="0.01"
-                               name="precio"
-                               value="{{ $producto->precio }}"
-                               class="form-control bg-dark text-white border-secondary">
+                            step="0.01"
+                            min="0.01"
+                            name="precio"
+                            value="{{ $producto->precio }}"
+                            class="form-control bg-dark text-white border-secondary"
+                            required>
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -74,11 +105,11 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label">URL Imagen</label>
-                    <input type="text"
-                           name="url_imagen"
-                           value="{{ $producto->url_imagen }}"
-                           class="form-control bg-dark text-white border-secondary">
+                    <label class="form-label">Cambiar Imagen</label>
+                        <input type="file"
+                            name="imagen"
+                            accept="image/*"
+                            class="form-control bg-dark text-white border-secondary">
                 </div>
 
                 @if($producto->url_imagen)

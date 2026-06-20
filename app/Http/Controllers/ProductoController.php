@@ -28,7 +28,7 @@ class ProductoController extends Controller
             'descripcion' => 'required',
             'editorial' => 'required|max:255',
             'tipo' => 'required|max:255',
-            'precio' => 'required|numeric|min:0',
+            'precio' => 'required|numeric|gt:0',
             'stock' => 'required|integer|min:0',
             'url_imagen' => 'nullable|max:255',
         ], [
@@ -38,13 +38,21 @@ class ProductoController extends Controller
             'tipo.required' => 'El tipo de producto es obligatorio.',
             'precio.required' => 'El precio es obligatorio.',
             'precio.numeric' => 'El precio debe ser un número.',
-            'precio.min' => 'El precio no puede ser negativo.',
+            'precio.gt' => 'El precio debe ser un número positivo.',
             'stock.required' => 'El stock es obligatorio.',
             'stock.integer' => 'El stock debe ser un número entero.',
             'stock.min' => 'El stock no puede ser negativo.',
         ]
         
         );
+        $rutaImagen = null;
+
+            if ($request->hasFile('imagen')) {
+
+                $rutaImagen = $request
+                    ->file('imagen')
+                    ->store('productos', 'public');
+            }
 
         Producto::create([
             'nombre' => $request->nombre,
@@ -53,7 +61,7 @@ class ProductoController extends Controller
             'tipo' => $request->tipo,
             'precio' => $request->precio,
             'stock' => $request->stock,
-            'url_imagen' => $request->url_imagen,
+            'url_imagen' => $rutaImagen,
             'activo' => true,
         ]);
 
@@ -71,6 +79,14 @@ class ProductoController extends Controller
         compact('producto')
     );
 }
+    $rutaImagen = $producto->url_imagen;
+
+        if ($request->hasFile('imagen')) {
+
+            $rutaImagen = $request
+                ->file('imagen')
+                ->store('productos', 'public');
+        }
 
     public function update(Request $request, $id)
     {
@@ -79,9 +95,9 @@ class ProductoController extends Controller
             'descripcion' => 'required',
             'editorial' => 'required|max:255',
             'tipo' => 'required|max:255',
-            'precio' => 'required|numeric|min:0',
+            'precio' => 'required|numeric|gt:0',
             'stock' => 'required|integer|min:0',
-            'url_imagen' => 'nullable|max:255',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ], [
             'nombre.required' => 'El nombre del producto es obligatorio.',
             'descripcion.required' => 'La descripción es obligatoria.',
@@ -105,7 +121,7 @@ class ProductoController extends Controller
             'tipo' => $request->tipo,
             'precio' => $request->precio,
             'stock' => $request->stock,
-            'url_imagen' => $request->url_imagen,
+           'url_imagen' => $rutaImagen,
         ]);
 
         return redirect('/admin/productos')
