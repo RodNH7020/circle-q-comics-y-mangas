@@ -72,24 +72,18 @@ class ProductoController extends Controller
 
     public function edit($id)
 {
+    
     $producto = Producto::findOrFail($id);
-
+    
     return view(
         'backend.admin.productos.edit',
         compact('producto')
     );
 }
-    $rutaImagen = $producto->url_imagen;
-
-        if ($request->hasFile('imagen')) {
-
-            $rutaImagen = $request
-                ->file('imagen')
-                ->store('productos', 'public');
-        }
 
     public function update(Request $request, $id)
-    {
+    {   
+        
         $request->validate([
             'nombre' => 'required|max:255',
             'descripcion' => 'required',
@@ -113,7 +107,14 @@ class ProductoController extends Controller
         );
 
         $producto = Producto::findOrFail($id);
+                $rutaImagen = $producto->url_imagen;
 
+        if ($request->hasFile('imagen')) {
+
+            $rutaImagen = $request
+                ->file('imagen')
+                ->store('productos', 'public');
+        }
         $producto->update([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
