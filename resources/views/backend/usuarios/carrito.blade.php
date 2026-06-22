@@ -47,14 +47,7 @@
                             </td>
                             
                             <td class="text-center bg-transparent text-white border-secondary py-3">
-                                <form action="{{ route('carrito.actualizar', $item->id) }}" method="POST" class="d-flex justify-content-center align-items-center gap-2 m-0">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="number" name="cantidad" value="{{ $item->cantidad }}" min="1" max="10" class="form-control form-control-sm text-center bg-dark text-white border-secondary" style="width: 70px;">
-                                    <button type="submit" class="btn btn-sm btn-outline-light" title="Actualizar cantidad">
-                                        ↻
-                                    </button>
-                                </form>
+                                {{ $item->cantidad }}
                             </td>
 
                             <td class="text-end bg-transparent text-white border-secondary py-3">
@@ -112,4 +105,23 @@
 
     </div>
 </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('success'))
+
+<script>
+
+Swal.fire({
+    title: 'Compra realizada',
+    text: '{{ session("success") }}',
+    icon: 'success',
+    background: '#000',
+    color: '#fff',
+    confirmButtonColor: '#198754'
+});
+
+</script>
+
+@endif
 @endsection

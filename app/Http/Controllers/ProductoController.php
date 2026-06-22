@@ -6,15 +6,50 @@ use App\Models\Producto;
 
 class ProductoController extends Controller
 {
-    public function index()
-    {
-        $productos = Producto::all();
+   public function index(Request $request)
+{
+    $query = Producto::query();
 
-        return view(
-            'backend.admin.productos.index',
-            compact('productos')
+    if ($request->buscar) {
+
+        $query->where(
+            'nombre',
+            'LIKE',
+            '%' . $request->buscar . '%'
         );
     }
+
+    if ($request->tipo) {
+
+        $query->where(
+            'tipo',
+            $request->tipo
+        );
+    }
+
+    if ($request->editorial) {
+
+        $query->where(
+            'editorial',
+            $request->editorial
+        );
+    }
+
+    $productos = $query->get();
+
+    $editoriales = Producto::select('editorial')
+        ->distinct()
+        ->orderBy('editorial')
+        ->pluck('editorial');
+
+    return view(
+        'backend.admin.productos.index',
+        compact(
+            'productos',
+            'editoriales'
+        )
+    );
+}
 
     public function create()
     {
@@ -83,7 +118,6 @@ class ProductoController extends Controller
 
     public function update(Request $request, $id)
     {   
-        
         $request->validate([
             'nombre' => 'required|max:255',
             'descripcion' => 'required',

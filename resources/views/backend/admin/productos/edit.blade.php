@@ -32,12 +32,16 @@
 
         <div class="card-body text-white p-4">
 
-           <form action="/admin/productos"
+          <form action="/admin/productos/{{ $producto->id }}"
                     method="POST"
                     enctype="multipart/form-data">
 
-                @csrf
-                @method('PUT')
+                    @csrf
+                    @method('PUT')
+
+                    <p class="text-warning">
+                        Ruta: {{ route('productos.update', $producto->id) }}
+                    </p>
 
                 <div class="mb-3">
                     <label class="form-label">Nombre</label>

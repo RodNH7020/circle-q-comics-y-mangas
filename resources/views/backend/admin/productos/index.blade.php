@@ -27,7 +27,87 @@
     </div>
 
     <div class="card-body text-white">
+        <form method="GET"
+      action="{{ route('productos.index') }}"
+      class="row g-3 mb-4">
 
+    <div class="col-md-4">
+
+        <input type="text"
+               name="buscar"
+               value="{{ request('buscar') }}"
+               placeholder="Buscar por nombre..."
+               class="form-control bg-dark text-white border-secondary">
+
+    </div>
+
+    <div class="col-md-3">
+
+        <select name="tipo"
+                class="form-select bg-dark text-white border-secondary">
+
+            <option value="">
+                Todos los tipos
+            </option>
+
+            <option value="Comic"
+                {{ request('tipo') == 'Comic' ? 'selected' : '' }}>
+                Comic
+            </option>
+
+            <option value="Manga"
+                {{ request('tipo') == 'Manga' ? 'selected' : '' }}>
+                Manga
+            </option>
+
+        </select>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <select name="editorial"
+                class="form-select bg-dark text-white border-secondary">
+
+            <option value="">
+                Todas las editoriales
+            </option>
+
+            @foreach($editoriales as $editorial)
+
+                <option value="{{ $editorial }}"
+                    {{ request('editorial') == $editorial ? 'selected' : '' }}>
+
+                    {{ $editorial }}
+
+                </option>
+
+            @endforeach
+
+        </select>
+
+    </div>
+
+    <div class="col-md-2 d-flex gap-2">
+
+        <button type="submit"
+                class="btn w-100"
+                style="background-color:#ff5733;color:white;">
+
+            Buscar
+
+        </button>
+
+        <a href="{{ route('productos.index') }}"
+           class="btn btn-secondary">
+
+            Limpiar
+
+        </a>
+
+    </div>
+
+</form>
         <div class="table-responsive">
 
             <table class="table table-dark table-hover align-middle">
@@ -48,7 +128,19 @@
                 </thead>
 
                 <tbody>
+                                    @if($productos->isEmpty())
 
+                    <tr>
+
+                        <td colspan="8" class="text-center text-warning">
+
+                            No se encontraron productos con esos filtros.
+
+                        </td>
+
+                    </tr>
+
+                    @endif
                 @foreach($productos as $producto)
 
                     <tr>

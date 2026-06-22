@@ -152,41 +152,75 @@ public function actualizar(Request $request, $id)
         return back()->with('success', 'Producto eliminado');
     }
 
-public function confirmar()
+    public function confirmar()
 {
     return \DB::transaction(function () {
+
         $carrito = $this->obtenerCarrito();
-        
+
         if ($carrito->detalles()->count() === 0) {
-            return back()->with('error', 'Tu carrito está vacío');
+
+            return back()->with(
+                'error',
+                'Tu carrito está vacío'
+            );
         }
 
-        // 1. CREAR LA VENTA REAL (CABECERA)
-        // Esto crea un registro nuevo con un ID único para esta compra
-        $ventaReal = \App\Models\VentaCabecera::create([
+        // Validar stock antes de confirmar
+        foreach ($carrito->detalles as $item) {
+
+            $producto = $item->producto;
+
+            if ($producto->stock < $item->cantidad) {
+
+                return redirect()
+                    ->route('cliente.carrito')
+                    ->with(
+                        'error',
+                        'Solo quedan ' .
+                        $producto->stock .
+                        ' unidades de "' .
+                        $producto->nombre .
+                        '". Actualice su carrito antes de continuar.'
+                    );
+            }
+        }
+
+        // Crear venta definitiva
+        $ventaReal = VentaCabecera::create([
             'user_id'     => auth()->id(),
             'estado'      => 'confirmado',
             'total'       => $carrito->total,
             'fecha_venta' => now(),
         ]);
 
-        // 2. MIGRAR LOS DETALLES DEL CARRITO A LA VENTA REAL
+        // Migrar detalles y descontar stock
         foreach ($carrito->detalles as $item) {
-            // Actualizamos el venta_id del detalle para que apunte a la venta real
-            $item->update(['venta_id' => $ventaReal->id]);
-            
-            // 3. RESTAR STOCK (lógica que ya tenías)
+
+            $item->update([
+                'venta_id' => $ventaReal->id
+            ]);
+
             $producto = $item->producto;
+
             $producto->stock -= $item->cantidad;
+
             $producto->save();
         }
 
-        // 4. ELIMINAR EL CARRITO TEMPORAL O RESETEARLO
-        // Al hacer esto, los detalles YA NO están en el carrito porque ahora pertenecen a la VentaReal
+        // Vaciar carrito
         $carrito->detalles()->delete();
-        $carrito->update(['total' => 0]);
 
-        return redirect()->route('compra.confirmada');
+        $carrito->update([
+            'total' => 0
+        ]);
+
+        return redirect()
+            ->route('cliente.carrito')
+            ->with(
+                'success',
+                '¡Compra realizada con éxito!'
+            );
     });
 }
 public function vaciar()
