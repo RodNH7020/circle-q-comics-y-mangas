@@ -59,12 +59,58 @@
                 </div>
 
                 <div class="mb-3">
+
                     <label class="form-label">Editorial</label>
-                    <input type="text"
-                           name="editorial"
-                           value="{{ $producto->editorial }}"
-                           class="form-control bg-dark text-white border-secondary">
+
+                    <select id="editorialSelect"
+                            name="editorial"
+                            class="form-select bg-dark text-white border-secondary">
+
+                        @foreach($editoriales as $editorial)
+
+                            <option value="{{ $editorial }}"
+                                {{ $producto->editorial == $editorial ? 'selected' : '' }}>
+                                {{ $editorial }}
+                            </option>
+
+                        @endforeach
+
+                        <option value="Nueva">
+                            + Agregar nueva editorial
+                        </option>
+
+                    </select>
+
                 </div>
+
+                <div class="mb-3"
+                    id="nuevaEditorialDiv"
+                    style="display:none;">
+
+                    <label class="form-label">
+                        Nueva Editorial
+                    </label>
+
+                    <input type="text"
+                        name="editorial_nueva"
+                        class="form-control bg-dark text-white border-secondary">
+
+                </div>
+
+                <script>
+
+                document.getElementById('editorialSelect')
+                .addEventListener('change', function() {
+
+                    document.getElementById('nuevaEditorialDiv')
+                        .style.display =
+                            this.value === 'Nueva'
+                            ? 'block'
+                            : 'none';
+
+                });
+
+                </script>
 
                 <div class="mb-3">
                     <label class="form-label">Tipo</label>

@@ -51,10 +51,19 @@ class ProductoController extends Controller
     );
 }
 
-    public function create()
-    {
-        return view('backend.admin.productos.create');
-    }
+    public function create(){
+    $editoriales = Producto::select('editorial')
+        ->whereNotNull('editorial')
+        ->where('editorial', '!=', '')
+        ->distinct()
+        ->orderBy('editorial')
+        ->pluck('editorial');
+
+    return view(
+        'backend.admin.productos.create',
+        compact('editoriales')
+    );
+}
 
     public function store(Request $request)
     {
@@ -88,11 +97,17 @@ class ProductoController extends Controller
                     ->file('imagen')
                     ->store('productos', 'public');
             }
+            $editorial = $request->editorial;
+
+                if ($request->editorial === 'Nueva') {
+
+                    $editorial = $request->editorial_nueva;
+                }
 
         Producto::create([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
-            'editorial' => $request->editorial,
+            'editorial' => $editorial,
             'tipo' => $request->tipo,
             'precio' => $request->precio,
             'stock' => $request->stock,
@@ -107,17 +122,31 @@ class ProductoController extends Controller
 
     public function edit($id)
 {
-    
     $producto = Producto::findOrFail($id);
-    
+
+    $editoriales = Producto::select('editorial')
+        ->whereNotNull('editorial')
+        ->where('editorial', '!=', '')
+        ->distinct()
+        ->orderBy('editorial')
+        ->pluck('editorial');
+
     return view(
         'backend.admin.productos.edit',
-        compact('producto')
+        compact(
+            'producto',
+            'editoriales'
+        )
     );
 }
-
     public function update(Request $request, $id)
-    {   
+    {    
+        $editorial = $request->editorial;
+
+            if ($request->editorial === 'Nueva') {
+
+                $editorial = $request->editorial_nueva;
+            }
         $request->validate([
             'nombre' => 'required|max:255',
             'descripcion' => 'required',
@@ -152,7 +181,7 @@ class ProductoController extends Controller
         $producto->update([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
-            'editorial' => $request->editorial,
+            'editorial' => $editorial,
             'tipo' => $request->tipo,
             'precio' => $request->precio,
             'stock' => $request->stock,
