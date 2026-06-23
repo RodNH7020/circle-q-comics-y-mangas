@@ -131,7 +131,7 @@
                             <div class="col-12 col-sm-6 col-md-4 mb-3">
                                 <div class="card h-100 shadow-sm border-0 bg-light">
                                     
-                                    <img src="{{ asset('images/' . $comic->url_imagen) }}" class="card-img-top rounded-0" alt="{{ $comic->nombre }}">
+                                    <img src="{{ asset('storage/' . $comic->url_imagen) }}" class="card-img-top rounded-0" alt="{{ $comic->nombre }}">
                                     
                                     <div class="card-body d-flex flex-column p-3">
                                         <h6 class="fw-bold mb-1 text-black">{{ $comic->nombre }}</h6>

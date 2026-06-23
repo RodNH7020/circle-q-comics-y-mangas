@@ -113,7 +113,7 @@
 <script>
 
 Swal.fire({
-    title: 'Compra realizada',
+    title: 'Operación realizada',
     text: '{{ session("success") }}',
     icon: 'success',
     background: '#000',

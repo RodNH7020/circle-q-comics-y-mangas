@@ -71,6 +71,7 @@ class ProductoController extends Controller
             'nombre' => 'required|max:255',
             'descripcion' => 'required',
             'editorial' => 'required|max:255',
+            'editorial_nueva' => 'required_if:editorial,Nueva|nullable|max:255', // CORREGIDO: Requerido solo si editorial es "Nueva"
             'tipo' => 'required|max:255',
             'precio' => 'required|numeric|gt:0',
             'stock' => 'required|integer|min:0',
@@ -79,6 +80,7 @@ class ProductoController extends Controller
             'nombre.required' => 'El nombre del producto es obligatorio.',
             'descripcion.required' => 'La descripción es obligatoria.',
             'editorial.required' => 'La editorial es obligatoria.',
+            'editorial_nueva.required_if' => 'Debes escribir el nombre de la nueva editorial.', // CORREGIDO: Mensaje de error personalizado
             'tipo.required' => 'El tipo de producto es obligatorio.',
             'precio.required' => 'El precio es obligatorio.',
             'precio.numeric' => 'El precio debe ser un número.',
@@ -141,16 +143,12 @@ class ProductoController extends Controller
 }
     public function update(Request $request, $id)
     {    
-        $editorial = $request->editorial;
-
-            if ($request->editorial === 'Nueva') {
-
-                $editorial = $request->editorial_nueva;
-            }
+        // CORREGIDO: Primero validamos todo de forma segura antes de procesar variables
         $request->validate([
             'nombre' => 'required|max:255',
             'descripcion' => 'required',
             'editorial' => 'required|max:255',
+            'editorial_nueva' => 'required_if:editorial,Nueva|nullable|max:255', // CORREGIDO: Validación añadida para evitar vacíos
             'tipo' => 'required|max:255',
             'precio' => 'required|numeric|gt:0',
             'stock' => 'required|integer|min:0',
@@ -159,10 +157,11 @@ class ProductoController extends Controller
             'nombre.required' => 'El nombre del producto es obligatorio.',
             'descripcion.required' => 'La descripción es obligatoria.',
             'editorial.required' => 'La editorial es obligatoria.',
+            'editorial_nueva.required_if' => 'Debes escribir el nombre de la nueva editorial.', // CORREGIDO: Mensaje de error personalizado
             'tipo.required' => 'El tipo de producto es obligatorio.',
             'precio.required' => 'El precio es obligatorio.',
             'precio.numeric' => 'El precio debe ser un número.',
-            'precio.min' => 'El precio no puede ser negativo.',
+            'precio.gt' => 'El precio debe ser un número positivo.',
             'stock.required' => 'El stock es obligatorio.',
             'stock.integer' => 'El stock debe ser un número entero.',
             'stock.min' => 'El stock no puede ser negativo.',
@@ -170,7 +169,7 @@ class ProductoController extends Controller
         );
 
         $producto = Producto::findOrFail($id);
-                $rutaImagen = $producto->url_imagen;
+        $rutaImagen = $producto->url_imagen;
 
         if ($request->hasFile('imagen')) {
 
@@ -178,6 +177,15 @@ class ProductoController extends Controller
                 ->file('imagen')
                 ->store('productos', 'public');
         }
+
+        // CORREGIDO: La lógica de intercambio se movió AQUÍ abajo para que no interfiera con la validación de Laravel
+        $editorial = $request->editorial;
+
+        if ($request->editorial === 'Nueva') {
+
+            $editorial = $request->editorial_nueva;
+        }
+
         $producto->update([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
@@ -204,9 +212,8 @@ class ProductoController extends Controller
         return redirect('/admin/productos')
             ->with('success', 'Producto desactivado correctamente');
     }
-    // ESTA ES LA FUNCIÓN NUEVA QUE FALTABA
     
-// Pasamos el Request como argumento para poder capturar los datos del formulario de la vista
+    // Pasamos el Request como argumento para poder capturar los datos del formulario de la vista
     public function catalogoPublico(Request $request)
     {
         // 1. Empezamos la consulta filtrando solo los productos que estén activos

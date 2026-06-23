@@ -31,7 +31,7 @@
 
     <div class="row">
 
-        @foreach($productos->where('editorial', $editorial)->take(4) as $producto)
+       @foreach($productos->where('editorial', $editorial)->where('activo', true)->take(4) as $producto)
         
         @php
             $stockDisponible = $producto->stock;
@@ -49,7 +49,7 @@
         @endphp
         <div class="col-12 col-md-3 mb-4">
             <div class="card h-100 shadow-sm border-0">
-                <img src="{{ asset('images/' . $producto->url_imagen) }}" class="card-img-top rounded-0" alt="{{ $producto->nombre }}">
+              <img src="{{ asset('storage/' . $producto->url_imagen) }}" class="card-img-top rounded-0" alt="{{ $producto->nombre }}">
                 <div class="card-body d-flex flex-column p-3">
                     
                     <h5 class="mb-1">{{ $producto->nombre }}</h5>

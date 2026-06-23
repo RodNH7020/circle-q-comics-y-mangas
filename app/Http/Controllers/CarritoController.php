@@ -152,41 +152,74 @@ public function actualizar(Request $request, $id)
         return back()->with('success', 'Producto eliminado');
     }
 
-    public function confirmar()
+ public function confirmar()
 {
     return \DB::transaction(function () {
 
         $carrito = $this->obtenerCarrito();
 
         if ($carrito->detalles()->count() === 0) {
-
             return back()->with(
                 'error',
                 'Tu carrito está vacío'
             );
         }
 
-        // Validar stock antes de confirmar
+        // Validar stock antes de confirmar y ajustar dinámicamente si falta
         foreach ($carrito->detalles as $item) {
-
             $producto = $item->producto;
 
-            if ($producto->stock < $item->cantidad) {
+       if (!$producto->activo) {
+                // Opción recomendada: Eliminamos automáticamente el ítem inactivo para limpiar su carrito
+                $item->delete();
+                
+                // Recalculamos el total del carrito sin este producto inactivo
+                $this->recalcularTotal($carrito);
 
                 return redirect()
                     ->route('cliente.carrito')
                     ->with(
                         'error',
-                        'Solo quedan ' .
-                        $producto->stock .
-                        ' unidades de "' .
-                        $producto->nombre .
-                        '". Actualice su carrito antes de continuar.'
+                        'El producto "' . $producto->nombre . '" ya no se encuentra disponible en nuestra tienda.'
                     );
+            }
+
+
+            if ($producto->stock < $item->cantidad) {
+                
+                if ($producto->stock > 0) {
+                    // 1. Ajustar la cantidad del ítem al stock máximo que queda disponible
+                    $item->cantidad = $producto->stock;
+                    
+                    // Supongo que tu modelo detalle tiene 'subtotal'. Si no, podés omitir esta línea
+                    // o adaptarla según cómo calcules el subtotal de cada fila.
+                    $item->subtotal = $item->cantidad * $item->precio_unitario; 
+                    $item->save();
+
+                    // 2. Recalcular el total general del carrito sumando todos sus detalles actualizados
+                    $nuevoTotal = $carrito->detalles()->sum('subtotal'); // O el campo que uses para el subtotal
+                    $carrito->update(['total' => $nuevoTotal]);
+
+                    // 3. Redireccionar informando al usuario el ajuste automático
+                    return redirect()
+                        ->route('cliente.carrito')
+                        ->with(
+                            'error',
+                            'Solo quedaban ' . $producto->stock . ' unidades de "' . $producto->nombre . '". Actualizamos tu carrito con el máximo disponible para que puedas continuar con la compra.'
+                        );
+                } else {
+                    // CASO EXTREMO: El stock bajó a 0 (completamente agotado)
+                    return redirect()
+                        ->route('cliente.carrito')
+                        ->with(
+                            'error',
+                            'El producto "' . $producto->nombre . '" se encuentra agotado. Por favor, quítalo de tu carrito para continuar.'
+                        );
+                }
             }
         }
 
-        // Crear venta definitiva
+        // Crear venta definitiva (Si pasa el foreach de arriba, es porque hay stock de todo)
         $ventaReal = VentaCabecera::create([
             'user_id'     => auth()->id(),
             'estado'      => 'confirmado',
@@ -202,9 +235,7 @@ public function actualizar(Request $request, $id)
             ]);
 
             $producto = $item->producto;
-
             $producto->stock -= $item->cantidad;
-
             $producto->save();
         }
 
